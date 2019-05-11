@@ -25,7 +25,7 @@ Route::prefix('web')
 
 
                 // 获取短信验证码
-                Route::get('sms', 'UserController@sms');
+                Route::post('sms', 'UserController@sms');
                 // 登录 or 注册 or  忘记密码页面
                 Route::get('login/{admin_hash_id}', 'UserController@loginView')->name('loginView');
                 // 登录
@@ -43,7 +43,7 @@ Route::prefix('web')
             ->namespace('Product')
             ->group(function () {
                 // 产品申请
-                Route::get('apply/{admin_hash_id}/{product_id}', 'ProductController@apply')
+                Route::get('apply/{admin_hash_id}/{product_id}', 'ProductController@applyView')
                     ->middleware('user.auth')->name('product');
             });
 
