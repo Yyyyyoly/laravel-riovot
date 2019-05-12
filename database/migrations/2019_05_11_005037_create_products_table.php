@@ -19,9 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('name')->comment('产品名称');
             $table->text('url')->comment('产品链接');
             $table->string('desc')->comment('产品简介');
-            $table->integer('icon_id')->comment('产品icon');
             $table->string('icon_url')->comment('产品url快照');
             $table->integer('fake_download_nums')->default(0)->comment('虚假下载量');
+            $table->integer('real_download_nums')->default(0)->comment('真实申请量');
+            $table->integer('top')->default(0)->comment('一键置顶');
             $table->integer('order')->default(1)->comment('产品排序');
             $table->boolean('is_show')->default(1)->comment('是否展示');
             $table->timestamps();

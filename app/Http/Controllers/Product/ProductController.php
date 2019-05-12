@@ -11,6 +11,72 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+
+    /**
+     * 产品列表
+     *
+     * @param $admin_hash_id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function productView($admin_hash_id)
+    {
+        // 查询产品列表
+        $product_table_name = Product::getModel()->getTable();
+        $type_table_name = ProductType::getModel()->getTable();
+        $products = Product::from("{$product_table_name} as a")
+            ->join("{$type_table_name} as b", 'a.type_id', '=', 'b.id')
+            ->where('a.is_show', 1)
+            ->where('b.is_show', 1)
+            ->orderByDesc('b.order')
+            ->orderByDesc('a.top')
+            ->orderByDesc('a.order')
+            ->selectRaw('b.id as type_id, b.name as type_name, a.name as product_name, a.id as product_id, url, `desc`, icon_url, fake_download_nums')
+            ->get();
+        $product_list = [];
+        foreach ($products as $product) {
+            if (empty($product[$product->type_id])) {
+                $product[$product->type_id] = [
+                    'type_name' => $product->type_name,
+                    'products'  => [],
+                ];
+            }
+
+            $product[$product->type_id]['products'][] = [
+                'id'            => $product->product_id,
+                'name'          => $product->product_name,
+                'desc'          => $product->desc,
+                'icon_url'      => $product->icon_url,
+                'download_nums' => $product->real_download_nums + $product->fake_download_nums,
+            ];
+        }
+
+
+        return view('product', [
+            'admin_hash_id' => $admin_hash_id,
+            'product_list'  => $product_list,
+            'fake_list'     => $this->getFakeList(),
+        ]);
+    }
+
+
+    /**
+     * 滚动假数据
+     *
+     * @return array
+     */
+    private function getFakeList()
+    {
+        return [
+            ['time' => '刚刚', 'title' => '133****3562申请的25000元借款成功到账'],
+            ['time' => '2分钟前', 'title' => '138****9388申请的10000元借款成功到账'],
+            ['time' => '5分钟前', 'title' => '187****6265申请的40000元借款成功到账'],
+            ['time' => '1小时前', 'title' => '187****1063申请的10000元借款成功到账'],
+            ['time' => '30分钟前', 'title' => '130****7019申请的50000元借款成功到账'],
+        ];
+    }
+
+
     /**
      * 跳转到第三方申请页并记录申请uv
      *
@@ -54,6 +120,9 @@ class ProductController extends Controller
             $apply_log->user_id = $user_id;
             $apply_log->admin_id = $admin_id;
             $apply_log->save();
+
+            // 真实下载量+1
+            $products->increment('real_download_nums');
         }
 
         // 跳第三方

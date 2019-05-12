@@ -18,11 +18,8 @@ Route::prefix('web')
         Route::prefix('user')
             ->namespace('User')
             ->group(function () {
-                // 首页
-                Route::get('home/{admin_hash_id}', 'UserController@homeView')->name('homeView');
                 // 用户详情页
                 Route::get('info/{admin_hash_id}', 'UserController@infoView')->name('infoView');
-
 
                 // 获取短信验证码
                 Route::post('sms', 'UserController@sms');
@@ -42,6 +39,9 @@ Route::prefix('web')
         Route::prefix('product')
             ->namespace('Product')
             ->group(function () {
+                // 产品列表页
+                Route::get('info/{admin_hash_id}', 'ProductController@productView')->name('productView');
+
                 // 产品申请
                 Route::get('apply/{admin_hash_id}/{product_id}', 'ProductController@applyView')
                     ->middleware('user.auth')->name('product');
