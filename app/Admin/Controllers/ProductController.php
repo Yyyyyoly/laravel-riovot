@@ -72,12 +72,11 @@ class ProductController extends Controller
         $grid = new Grid(new Product);
 
         $grid->model()->orderBy('id', 'desc');
-        $grid->model()->with(['product_type']);
+        $grid->model()->with(['productType']);
 
-        $grid->id('产品编号');
         $grid->column('productType.name', '产品类型');
         $grid->name('产品名称');
-        $grid->icon_url('logo');
+        $grid->icon_url('logo')->image();
         $grid->desc('要点');
         $grid->fake_download_nums('已下款初始值');
         $grid->real_download_nums('真实申请量');
