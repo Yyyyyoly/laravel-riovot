@@ -93,6 +93,7 @@ class ProductTypeController extends Controller
         $grid->actions(function ($actions) {
             $actions->disableView();
         });
+        $grid->disableExport();
 
         return $grid;
     }

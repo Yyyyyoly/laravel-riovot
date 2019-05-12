@@ -46,7 +46,7 @@ class ProductController extends Controller
                 'id'            => $product->product_id,
                 'name'          => $product->product_name,
                 'desc'          => $product->desc,
-                'icon_url'      => $product->icon_url,
+                'icon_url'      => Product::transferIconUrl($product->icon_url),
                 'download_nums' => $product->real_download_nums + $product->fake_download_nums,
             ];
         }

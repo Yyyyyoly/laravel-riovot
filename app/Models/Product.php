@@ -15,4 +15,19 @@ class Product extends Model
     {
         return $this->belongsTo(ProductType::class, 'type_id');
     }
+
+
+    /**
+     * 获取logo真实路径
+     *
+     * @param $icon_url
+     *
+     * @return string
+     */
+    public static function transferIconUrl($icon_url)
+    {
+        $disk = config('admin.upload.disk');
+
+        return config("filesystems.disks.{$disk}.url") . '/' . $icon_url;
+    }
 }
