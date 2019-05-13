@@ -93,8 +93,11 @@ class UserController extends Controller
      */
     public function loginView($admin_hash_id)
     {
+        $product_id = request('product_id', 0);
+
         return view('login', [
             'admin_hash_id' => $admin_hash_id,
+            'product_id'    => $product_id,
         ]);
     }
 

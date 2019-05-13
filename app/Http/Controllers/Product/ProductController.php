@@ -81,14 +81,14 @@ class ProductController extends Controller
      * 跳转到第三方申请页并记录申请uv
      *
      * @param $admin_hash_id
-     * @param $product_id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function applyView($admin_hash_id, $product_id)
+    public function applyView($admin_hash_id)
     {
         $user = session('user_info');
         $user_id = $user['id'] ?? 0;
+        $product_id = request('product_id');
 
         // 查询产品是否有效
         $product_table_name = Product::getModel()->getTable();

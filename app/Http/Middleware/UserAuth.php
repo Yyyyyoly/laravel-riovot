@@ -17,9 +17,17 @@ class UserAuth
      */
     public function handle($request, Closure $next)
     {
-        $admin_has_id = request('admin_hash_id');
+        $admin_hash_id = request('admin_hash_id');
         if (empty(session('user_info'))) {
-            return redirect(route('loginView', ['admin_hash_id' => $admin_has_id]));
+            $product_id = request('product_id');
+            $route = route('loginView', ['admin_hash_id' => $admin_hash_id]);
+
+            // 如果带了产品id
+            if (!empty($product_id)) {
+                $route .= '?product_id=' . $product_id;
+            }
+
+            return redirect($route);
         }
 
         return $next($request);
