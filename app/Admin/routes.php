@@ -19,8 +19,17 @@ Route::group([
     $router->resource('product', ProductController::class);
 
     // 渠道管理
-    $router->resource('user', UserController::class);
+    $router->resource('user', AdminController::class);
 
     // 渠道统计报表
     $router->get('user-statistics', 'UserStatisticsController@index');
+
+    // 客户列表
+    $router->resource('customer', UserController::class);
+
+    // 客户登录日志
+    $router->resource('customer-login', UserLoginController::class);
+
+    // 客户登录日志
+    $router->resource('customer-apply', UserApplyProductController::class);
 });

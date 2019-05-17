@@ -13,22 +13,47 @@ class AdminCacheKeys
 {
 
     /**
-     * 获取资讯源发布 今日跳过key
+     * 获取今日申请排行榜key
+     *
+     * @param Carbon $now
      *
      * @return string
      */
-    public static function getNewsReleaseNextButtonSkipKey(Carbon $now)
+    public static function getApplyRankKey(Carbon $now)
     {
-        return "ADMIN_NEWS_RELEASE_{$now->toDateString()}_NEXT_BUTTON_SKIP";
+        return "ADMIN_APPLY_RANK_{$now->toDateString()}";
     }
 
     /**
-     * 获取视频源发布 今日跳过key
+     * 获取今日注册排行榜key
+     *
+     * @param Carbon $now
      *
      * @return string
      */
-    public static function getVideoReleaseNextButtonSkipKey(Carbon $now)
+    public static function getRegisterRankKey(Carbon $now)
     {
-        return "ADMIN_VIDEO_RELEASE_{$now->toDateString()}_NEXT_BUTTON_SKIP";
+        return "ADMIN_REGISTER_RANK_{$now->toDateString()}";
+    }
+
+    /**
+     * 申请排行榜最后一次更新时间
+     *
+     * @return string
+     */
+    public static function getApplyLastUpdateTimestamp()
+    {
+        return "APPLY_UPDATE_TIMESTAMP";
+    }
+
+
+    /**
+     * 注册排行榜最后一次更新时间
+     *
+     * @return string
+     */
+    public static function getRegisterLastUpdateTimestamp()
+    {
+        return "REGISTER_UPDATE_TIMESTAMP";
     }
 }

@@ -15,6 +15,18 @@ class User extends Model
 
 
     /**
+     * 所属渠道
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function adminUser()
+    {
+        $userModel = config('admin.database.users_model');
+
+        return $this->belongsTo($userModel, 'admin_id');
+    }
+
+    /**
      * 解析加密后的渠道id
      *
      * @param $id
