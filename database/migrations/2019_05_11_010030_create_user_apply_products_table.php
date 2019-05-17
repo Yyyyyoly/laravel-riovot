@@ -22,6 +22,7 @@ class CreateUserApplyProductsTable extends Migration
 
             $table->unique(['user_id', 'product_id']);
             $table->index(['admin_id']);
+            $table->index(['created_at']);
         });
     }
 

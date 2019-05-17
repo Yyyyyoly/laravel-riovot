@@ -17,4 +17,10 @@ Route::group([
 
     // 产品管理
     $router->resource('product', ProductController::class);
+
+    // 渠道管理
+    $router->resource('user', UserController::class);
+
+    // 渠道统计报表
+    $router->get('user-statistics', 'UserStatisticsController@index');
 });

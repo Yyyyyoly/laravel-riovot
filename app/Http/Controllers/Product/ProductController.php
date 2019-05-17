@@ -36,13 +36,13 @@ class ProductController extends Controller
         $product_list = [];
         foreach ($products as $product) {
             if (empty($product[$product->type_id])) {
-                $product[$product->type_id] = [
+                $product_list[$product->type_id] = [
                     'type_name' => $product->type_name,
                     'products'  => [],
                 ];
             }
 
-            $product[$product->type_id]['products'][] = [
+            $product_list[$product->type_id]['products'][] = [
                 'id'            => $product->product_id,
                 'name'          => $product->product_name,
                 'desc'          => $product->desc,
@@ -50,7 +50,6 @@ class ProductController extends Controller
                 'download_nums' => $product->real_download_nums + $product->fake_download_nums,
             ];
         }
-
 
         return view('product', [
             'admin_hash_id' => $admin_hash_id,

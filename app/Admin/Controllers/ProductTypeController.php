@@ -115,6 +115,10 @@ class ProductTypeController extends Controller
         $form->switch('is_show', '显示')->states($is_show)->default(1);
         $form->number('order', '排序')->default(1);
 
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableView();
+        });
+
         $form->footer(function (Form\Footer $footer) {
             $footer->disableViewCheck();
         });

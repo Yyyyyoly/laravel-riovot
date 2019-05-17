@@ -23,7 +23,7 @@ class User extends Model
      */
     public static function decodeAdminId($id)
     {
-        $hash = new Hashids();
+        $hash = new Hashids(config('app.name'), 6);
 
         return $hash->decode($id);
     }
@@ -38,7 +38,7 @@ class User extends Model
      */
     public static function encodeAdminId($id)
     {
-        $hash = new Hashids();
+        $hash = new Hashids(config('app.name'), 6);
 
         return $hash->encode($id);
     }
