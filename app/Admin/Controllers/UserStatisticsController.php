@@ -11,7 +11,6 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Box;
-use Illuminate\Support\Collection;
 
 class UserStatisticsController extends Controller
 {
@@ -69,8 +68,12 @@ class UserStatisticsController extends Controller
 
 
         $grid->name('渠道名称');
-        $grid->column('register_count', '注册量')->sortable();
-        $grid->column('apply_count', '申请量')->sortable();
+        $grid->column('register_count', '注册量')->display(function ($register_count) {
+            return intval($register_count);
+        })->sortable();
+        $grid->column('apply_count', '申请量')->display(function ($apply_count) {
+            return intval($apply_count);
+        })->sortable();
 
         // 过滤器
         $grid->filter(function (Grid\Filter $filter) {
