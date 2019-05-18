@@ -27,18 +27,21 @@ class UserStatistic extends Model
         $user_table = User::getModel()->getTable();
         $user_apply_table = UserApplyProduct::getModel()->getTable();
 
-        // 总条数
-        $total = $admin_model::count();
+        // where条件
+        // 时间
+        $time = request('time');
+        $start_time = empty($time) ? Carbon::now()->startOfDay() : Carbon::parse($time['start']);
+        $end_time = empty($time) ? Carbon::now()->endOfDay() : Carbon::parse($time['end']);
+        // 渠道名称
+        $name = request('name');
 
         // 分页
         $perPage = request('per_page', $perPage);
         $page = request('page', 1);
         $start = ($page - 1) * $perPage;
 
-        // where条件
-        $time = request('time');
-        $start_time = empty($time) ? Carbon::now()->startOfDay() : Carbon::parse($time['start']);
-        $end_time = empty($time) ? Carbon::now()->endOfDay() : Carbon::parse($time['end']);
+        // 总条数
+        $total = empty($name) ? $admin_model::count() : $admin_model::where('name', 'like', "%{$name}%")->count();
 
         // 排序条件
         $sort = request('_sort', ['column' => 'id', 'type' => 'asc']);
@@ -50,6 +53,9 @@ class UserStatistic extends Model
             ->where('registered_at', '<=', $end_time)
             ->groupBy('admin_id')
             ->selectRaw('admin_id, count(*) as register_count');
+        if ($name) {
+            $sub_query_1->where('a.name', 'like', "%{$name}%");
+        }
 
         // 统计申请量
         $sub_query_2 = \DB::table($admin_table . ' as a')
@@ -58,8 +64,11 @@ class UserStatistic extends Model
             ->where('b.created_at', '<=', $end_time)
             ->groupBy('admin_id')
             ->selectRaw('admin_id, count(*) as apply_count');
+        if ($name) {
+            $sub_query_2->where('a.name', 'like', "%{$name}%");
+        }
 
-        $results = \DB::table("{$admin_table} as admin")
+        $query = \DB::table("{$admin_table} as admin")
             ->leftJoin(\DB::raw('(' . $sub_query_1->toSql() . ') AS user'),
                 function ($join) use ($sub_query_1) {
                     $join->on('admin.id', '=', 'user.admin_id')
@@ -70,8 +79,11 @@ class UserStatistic extends Model
                     $join->on('admin.id', '=', 'apply.admin_id')
                         ->addBinding($sub_query_2->getBindings());
                 })
-            ->selectRaw('id, name,register_count,apply_count')
-            ->orderBy($sort['column'], $sort['type'])
+            ->selectRaw('id, name,register_count,apply_count');
+        if ($name) {
+            $query->where('admin.name', 'like', "%{$name}%");
+        }
+        $results = $query->orderBy($sort['column'], $sort['type'])
             ->limit($perPage)
             ->offset($start)
             ->get()
@@ -90,19 +102,6 @@ class UserStatistic extends Model
     public static function with($relations)
     {
         return new static;
-    }
-
-
-    // 覆盖`orderBy`来收集排序的字段和方向
-    public function orderBy($column, $direction = 'asc')
-    {
-
-    }
-
-    // 覆盖`where`来收集筛选的字段和条件
-    public function where($column, $operator = null, $value = null, $boolean = 'and')
-    {
-
     }
 
 }

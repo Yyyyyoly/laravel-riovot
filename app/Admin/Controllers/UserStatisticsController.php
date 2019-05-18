@@ -41,24 +41,34 @@ class UserStatisticsController extends Controller
         $time = request('time');
         $start_time = empty($time) ? Carbon::now()->startOfDay() : Carbon::parse($time['start']);
         $end_time = empty($time) ? Carbon::now()->endOfDay() : Carbon::parse($time['end']);
+        $name = request('name');
 
         $grid = new Grid(new UserStatistic());
 
-        $grid->header(function () use ($start_time, $end_time) {
+        $grid->header(function () use ($start_time, $end_time, $name) {
             $row = new Row();
 
             // 用户注册汇总
-            $user_register_total = User::where('registered_at', '>=', $start_time)
-                ->where('registered_at', '<=', $end_time)
-                ->count();
+            $user_register_sql = User::where('registered_at', '>=', $start_time)
+                ->where('registered_at', '<=', $end_time);
+            // 用户申请汇总
+            $user_apply_sql = UserApplyProduct::where('created_at', '>=', $start_time)
+                ->where('created_at', '<=', $end_time);
+            // 如果有渠道限制
+            if ($name) {
+                $admin_model = config('admin.database.users_model');
+                $admin_ids = $admin_model::where('name', 'like', "%{$name}%")->get()->pluck('id')->toArray();
+                $user_register_sql->whereIn('admin_id', $admin_ids);
+                $user_apply_sql->whereIn('admin_id', $admin_ids);
+            }
+
+            $user_register_total = $user_register_sql->count();
+            $user_apply_total = $user_apply_sql->count();
+
             $box_register = new Box("注册汇总", empty($user_register_total) ? '--' : $user_register_total);
             $box_register->style('info');
             $row->column(2, $box_register);
 
-            // 用户申请汇总
-            $user_apply_total = UserApplyProduct::where('created_at', '>=', $start_time)
-                ->where('created_at', '<=', $end_time)
-                ->count();
             $box_apply = new Box("申请汇总", empty($user_apply_total) ? '--' : $user_apply_total);
             $box_apply->style('info');
             $row->column(2, $box_apply);

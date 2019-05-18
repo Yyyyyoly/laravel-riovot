@@ -104,17 +104,17 @@ class UserCsvExporter extends AbstractExporter
         // conditions
         // admin_name
         if (isset($params['adminUser']) && $params['adminUser']['name']) {
-            $q->where("{$admin_table}.name", 'like', $params['adminUser']['name']);
+            $q->where("{$admin_table}.name", 'like', "%{$params['adminUser']['name']}%");
         }
 
         // phone
         if (isset($params['phone']) && $params['phone']) {
-            $q->where("phone", 'like', $params['phone']);
+            $q->where("phone", 'like', "%{$params['phone']}%");
         }
 
         // user_name
         if (isset($params['name']) && $params['name']) {
-            $q->where("{$user_table}.name", 'like', $params['name']);
+            $q->where("{$user_table}.name", 'like', "%{$params['name']}%");
         }
 
         // 发布时间
