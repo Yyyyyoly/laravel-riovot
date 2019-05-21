@@ -91,11 +91,13 @@ class UserStatisticsController extends Controller
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->like('name', '渠道名称');
-            $filter->between('time', '时间')->datetime()->default([
-                'start' => Carbon::now()->startOfDay(),
-                'end'   => Carbon::now()->endOfDay(),
-            ]);
+            $filter->column(6, function ($filter) {
+                $filter->like('name', '渠道名称');
+                $filter->between('time', '时间')->datetime()->default([
+                    'start' => Carbon::now()->startOfDay(),
+                    'end'   => Carbon::now()->endOfDay(),
+                ]);
+            });
         });
 
         $grid->disableCreateButton();

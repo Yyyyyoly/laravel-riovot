@@ -86,7 +86,9 @@ class ProductTypeController extends Controller
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->like('name', '类别名称');
+            $filter->column(6, function($filter){
+                $filter->like('name', '类别名称');
+            });
         });
 
         // 关闭视图

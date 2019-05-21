@@ -73,13 +73,15 @@ class UserController extends Controller
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
 
-            $filter->like('adminUser.name', '渠道名称');
-            $filter->like('phone', '手机号');
-            $filter->like('name', '姓名');
-            $filter->between('registered_at', '注册时间')->datetime()->default([
-                'start' => Carbon::now()->startOfDay(),
-                'end'   => Carbon::now()->endOfDay(),
-            ]);;
+            $filter->column(6, function ($filter) {
+                $filter->like('adminUser.name', '渠道名称');
+                $filter->like('phone', '手机号');
+                $filter->like('name', '姓名');
+                $filter->between('registered_at', '注册时间')->datetime()->default([
+                    'start' => Carbon::now()->startOfDay(),
+                    'end'   => Carbon::now()->endOfDay(),
+                ]);
+            });
         });
 
         $grid->actions(function (Grid\Displayers\Actions $actions) {

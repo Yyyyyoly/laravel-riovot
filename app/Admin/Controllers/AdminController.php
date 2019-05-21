@@ -71,7 +71,7 @@ class AdminController extends Controller
 
         $grid = new Grid(new $userModel());
 
-        $grid->id('ID')->sortable();
+        $grid->id('坐席ID')->sortable();
         $grid->username('登录用户名');
         $grid->name('渠道昵称');
         $grid->roles(trans('admin.roles'))->pluck('name')->label();
@@ -87,8 +87,10 @@ class AdminController extends Controller
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
 
-            $filter->like('username', '登录用户名');
-            $filter->like('name', '渠道昵称');
+            $filter->column(6, function ($filter) {
+                $filter->like('username', '登录用户名');
+                $filter->like('name', '渠道昵称');
+            });
         });
 
         $grid->actions(function (Grid\Displayers\Actions $actions) {

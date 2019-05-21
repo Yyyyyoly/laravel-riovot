@@ -101,12 +101,14 @@ class ProductController extends Controller
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->like('product_type.name', '类别名称');
-            $filter->like('name', '产品名称');
-            $filter->equal('is_show', '是否显示')->radio([
-                1 => '是',
-                0 => '否',
-            ]);
+            $filter->column(6, function($filter){
+                $filter->like('product_type.name', '类别名称');
+                $filter->like('name', '产品名称');
+                $filter->equal('is_show', '是否显示')->radio([
+                    1 => '是',
+                    0 => '否',
+                ]);
+            });
         });
 
         // 关闭视图
