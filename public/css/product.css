@@ -1,0 +1,158 @@
+.product{
+  background: #fff;
+  padding-top: 200px;
+  padding-bottom: 60px;
+  position: relative;
+}
+.product-top{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #E7E7E7;
+  z-index: 2;
+}
+.p-head {
+  width: 100%;
+  padding: 10px 30px;
+  background: url(../images/headbanner.png) no-repeat;
+  background-size: 100% 100%
+}
+
+.p-head-desc {
+  color: #fff;
+}
+
+.p-head-right {
+  text-align: right;
+  margin: 5px 0;
+}
+
+.p-head-logen {
+  text-align: right;
+  color: #fff;
+}
+.scroll-show{
+  background: #fff;
+  padding: 10px 0;
+  margin-bottom: 5px;
+  position: relative;
+}
+.icon-bell-alt{
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  color: #EC983E;
+}
+
+.scroll-list {
+  height: 24px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.scroll-list .item {
+  line-height: 24px;
+  height: 24px;
+  font-size: 12px;
+  text-align: center;   
+}
+
+.p-title{
+  text-align: center;
+  background: #FAFAFA;
+  border-bottom: 1px solid #E5E5E7;
+  line-height: 35px;
+  color: #EC983E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.p-title .p-title-text{
+  display: inline-block;
+  border-bottom: 2px solid #EC983E;
+}
+
+.p-title-record{
+  color: #000;
+  font-size: 20px;
+  width: 50px;
+  height: 100%;
+}
+ 
+.p-title-record .icon-angle-left {
+  margin-left: 15px;
+}
+
+.p-title-record .icon-angle-right{
+  margin-right: 15px;
+}
+
+.product-list{ 
+  padding: 15px 10px 10px;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+.product-list-cell{
+  position: relative;
+  width: 31%;
+  padding: 5px;
+  box-shadow: 1px 1px 4px #c9daf6;
+  background: #fff;
+  border: 1px solid #c9daf6;
+  border-radius: 10px 0px 10px 0px;
+  margin-bottom: 10px;
+  text-align: center;
+   
+}
+.cell-img{
+  width: 40px;
+  height: 40px;
+  border:1px solid #E5E5E7;
+}
+.product-list-cell .title{
+  font-size: 14px;
+  font-weight: 600;
+}
+.product-list-cell .num{
+  color: #999;
+}
+.product-list-cell .num{
+  color: #e95656;
+}
+.product-list-cell .desc{
+  color: #666;
+  font-size: 12px;
+}
+
+.p-download{
+  position: absolute;
+  top: 0px;
+  right: 0;
+  width: 45px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-cloud-download{
+  font-size: 20px;
+  color: #349fee;
+}
+.icon-circle-blank{
+  color: #c9daf6;
+}
+.i-right{
+  position: absolute;
+  font-size:10px;
+  right: 2px;
+  top: 1px;
+}
+
+.tab_show{
+  display: block !important;
+}
+.list_show{
+  display: flex !important;
+}

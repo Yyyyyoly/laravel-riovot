@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  /*ios闪屏*/
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: '微软雅黑', 'DroidSans', 'Microsoft Yahei';
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+}
+a {
+  text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.hide{
+  display: none !important;
+}
+.show{
+  display: block;
+}
+
+
+.app-bottom{
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #FAFAFA;
+  border-top: 1px solid #E5E5E7;
+}
+.app-bottom>div{
+  width: 50%;
+  color: #767676;
+  text-align: center;
+}
+.app-bottom>div:first-child{
+  border-right: 1px solod #E5E5E7;
+}
+.menu-active,.menu-active i{
+  color:#F1A13E !important;
+}
+ 
+.app-bottom i{
+  color: #E5E5E5;
+  font-size: 22px;
+}
