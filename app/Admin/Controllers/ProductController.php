@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         $grid = new Grid(new Product);
 
-        $grid->model()->orderBy('id', 'desc');
+        $grid->model()->orderBy('top', 'desc')->orderBy('order', 'asc')->orderBy('is_show', 'desc');
         $grid->model()->with(['productType']);
 
         $grid->column('productType.name', '产品类型');
@@ -101,7 +101,7 @@ class ProductController extends Controller
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->column(6, function($filter){
+            $filter->column(6, function ($filter) {
                 $filter->like('product_type.name', '类别名称');
                 $filter->like('name', '产品名称');
                 $filter->equal('is_show', '是否显示')->radio([
