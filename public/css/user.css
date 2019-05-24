@@ -1,0 +1,65 @@
+.user-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    background: #fff;
+}
+.user-top .user-back{
+    width: 50px;
+    text-align: center;
+    font-size: 24px;
+}
+.user-top .login-status{
+    width: 55px;
+    text-align: center;
+    font-size: 14px;
+}
+body{
+    background: #eee;
+}
+.user-detail{
+    background: #fff;
+    padding: 10px 0;
+}
+.user-detail>div{
+    padding: 0 15px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+.user-detail>div:active{
+    background: #eee;
+}
+.user-head img{
+    width: 65px
+}
+.user-name{
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 5px;
+}
+.user-detail i{
+    font-size: 14px;
+}
+.about-us{
+    background: #fff;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+.about-us-cell{
+    height: 50px;
+    border-bottom: 1px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 15px;
+}
+.about-us-cell:last-child{
+    border-bottom:0;
+}
+.icon-chevron-right{
+    color: #888;
+}

@@ -1,0 +1,105 @@
+.app{
+  background: linear-gradient(to bottom right,#FBBE06,#fa630a);
+  min-height: 100%;
+}
+.app-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+}
+.app-logo img{
+  width: 60px;
+  margin-right: 15px;
+}
+.app-logo div{
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.app-login{
+  width: 100%;
+  padding: 15px 10%;
+}
+.app-login-cell{
+  line-height: 45px;
+  position: relative;
+  background: #fff;
+  text-align: center;
+  padding-left: 50px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+}
+.app-login-cell input {
+  width: 100%;
+  padding-right: 10px;
+  height: 30px;
+  border: 0;
+  font-size: 14px;
+}
+.app-login-cell i{
+  position:absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 20px;
+  color: #ddd;
+}
+.login-btn{
+  line-height: 45px;
+  position: relative;
+  background: #fff;
+  text-align: center;
+  border-radius: 6px;
+  color: #fa630a;
+  font-size: 16px;
+  font-weight: 600;
+}
+.login-regist{
+  text-align: right;
+  font-size: 14px;
+  color: #285876;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.regist-login{
+  text-align: center;
+  font-size: 14px;
+  color: #285876;
+  margin-bottom: 20px;
+}
+.app-login-cell img{
+  position:absolute;
+  top: 12px;
+  left: 16px;
+  width: 20px
+}
+
+.app-cell-phone{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  height: 45px;
+}
+.app-cell-phone input {
+  width: 60%;
+  text-align: center;
+  height: 30px;
+  border: 0;
+  font-size: 14px;
+}
+.app-cell-phone div {
+  width: 40%;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+  color: #7fcc08;
+  border: 0;
+  font-size: 14px;
+  border-left: 1px solid #c9daf6;
+}
