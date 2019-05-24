@@ -103,3 +103,6 @@
   font-size: 14px;
   border-left: 1px solid #c9daf6;
 }
+.app-cell-phone div>span {
+  color: #666;
+}

@@ -9,14 +9,14 @@
 <link type="text/css" href="{{ asset('/css/common.css') }}" rel="stylesheet">
 <link type="text/css" href="{{ asset('/css/user.css') }}" rel="stylesheet">
 <script>
-
+	var hashId = '{{$admin_hash_id}}';
 </script>
 
 <body>
 	<div class="app">
 		<div class="user-top">
 			<div class="user-back">
-				<i class="icon-angle-left" onclick="javascript:history.go(-1)"></i> 
+				<i class="icon-angle-left" onclick="javascript:history.go(-1)"></i>
 			</div>
 			<div>个人中心</div>
 			@if($is_login)
@@ -63,6 +63,7 @@
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="_token" value="{{ csrf_token() }}">
 </body>
 
 <script src="{{ asset("/js/zepto.min.js")}} "></script>
