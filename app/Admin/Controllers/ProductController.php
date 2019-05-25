@@ -76,7 +76,7 @@ class ProductController extends Controller
 
         $grid->column('productType.name', '产品类型');
         $grid->name('产品名称');
-        $grid->icon_url('logo')->image(Product::getImageHostPrefix(), 150, 150);
+        $grid->icon_url('logo')->image(Product::getImageHostPrefix(), 45, 45);
         $grid->desc('要点');
         $grid->fake_download_nums('已下款初始值');
         $grid->real_download_nums('真实申请量');
