@@ -68,7 +68,8 @@ $(function () {
 
                     },
                     error: function (error) {
-                        showWin(error.reason);
+                        var reason = JSON.parse(error.responseText);
+                        showWin(reason.reason);
                         clickStatus = false;
                     }
                 });
@@ -140,7 +141,8 @@ $(function () {
 
             },
             error: function (error) {
-                showWin(error.reason);
+                var reason = JSON.parse(error.responseText);
+                showWin(reason.reason);
             }
         });
     });
@@ -174,7 +176,8 @@ $(function () {
                 }
             },
             error: function (error) {
-                showWin(error.reason);
+                var reason = JSON.parse(error.responseText);
+                showWin(reason.reason);
             }
         });
     });
@@ -226,7 +229,8 @@ $(function () {
                         }
                     },
                     error: function (error) {
-                        showWin(error.reason);
+                        var reason = JSON.parse(error.responseText);
+                        showWin(reason.reason);
                         clickStatusSet = false;
                     }
                 });
@@ -287,7 +291,8 @@ $(function () {
                 }
             },
             error: function (error) {
-                showWin(error.reason);
+                var reason = JSON.parse(error.responseText);
+                showWin(reason.reason);
             }
         });
     });
