@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function applyView($admin_hash_id)
     {
         $user = session('user_info');
-        $user_id = $user['id'] ?? 0;
+        $user_id = $user['user_id'] ?? 0;
         $product_id = request('product_id');
 
         // 查询产品是否有效

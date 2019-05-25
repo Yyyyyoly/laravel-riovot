@@ -29,6 +29,18 @@ class UserApplyProductController extends Controller
             ->body($this->grid());
     }
 
+    /**
+     * 删除
+     *
+     * @param $id
+     *
+     * @return int
+     */
+    public function destroy($id)
+    {
+        return UserApplyProduct::destroy($id);
+    }
+
 
     /**
      * Make a grid builder.

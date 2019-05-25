@@ -29,6 +29,17 @@ class UserLoginController extends Controller
             ->body($this->grid());
     }
 
+    /**
+     * 删除
+     *
+     * @param $id
+     *
+     * @return int
+     */
+    public function destroy($id)
+    {
+        return UserLoginLog::destroy($id);
+    }
 
     /**
      * Make a grid builder.

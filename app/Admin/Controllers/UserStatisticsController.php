@@ -33,6 +33,18 @@ class UserStatisticsController extends Controller
 
 
     /**
+     * 删除
+     *
+     * @param $id
+     *
+     * @return int
+     */
+    public function destroy($id)
+    {
+        return UserStatistic::destroy($id);
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid
