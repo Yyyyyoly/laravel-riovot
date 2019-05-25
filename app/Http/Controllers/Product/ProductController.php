@@ -35,7 +35,7 @@ class ProductController extends Controller
             ->get();
         $product_list = [];
         foreach ($products as $product) {
-            if (empty($product[$product->type_id])) {
+            if (empty($product_list[$product->type_id])) {
                 $product_list[$product->type_id] = [
                     'type_name' => $product->type_name,
                     'products'  => [],
