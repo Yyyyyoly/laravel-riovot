@@ -76,8 +76,8 @@ class UserController extends Controller
     public function infoView($admin_hash_id)
     {
         $user_info = session('user_info', []);
-        $user_id = $user_info['id'] ?? 0;
-        $user_name = $user_info['user_name'] ?? '';
+        $user_id = $user_info['user_id'] ?? 0;
+        $user_name = $user_info['name'] ?? '';
         $phone = $user_info['phone'] ?? '';
 
         return view('info', [
