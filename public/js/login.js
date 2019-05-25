@@ -127,7 +127,7 @@ $(function () {
             data: params,
             dataType: "json",
             success: function (data) {
-                window.location.href = '/web/user/login/' + hashId + '';
+                window.location.href = '/web/product/info/' + hashId + '';
                 console.log(data);
             },
             error: function (error) {
@@ -158,7 +158,7 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                window.location.href = '/web/user/login/' + hashId + '';
+                window.location.href = '/web/product/info/' + hashId + '';
                 console.log(data);
             },
             error: function (error) {
