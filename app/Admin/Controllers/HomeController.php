@@ -5,6 +5,7 @@ namespace App\Admin\Controllers;
 use App\Models\AdminUser;
 use App\Constants\AdminCacheKeys;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Carbon\Carbon;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
@@ -21,9 +22,12 @@ class HomeController extends Controller
      */
     public function index(Content $content)
     {
+        $link = route('productView', ['admin_hash_id' => User::encodeAdminId(\Admin::user()->id)]);
+
         return $content
             ->header('今日实时Top10排行榜')
             ->description('排行榜每1分钟更新一次')
+            ->row("我的专属链接：<font style='color: indianred'>{$link}</font>")
             ->row($this->title())
             ->row(function (Row $row) {
                 $row->column(1, function (Column $column) {
