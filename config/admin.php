@@ -353,4 +353,9 @@ return [
     'extensions'                => [
 
     ],
+
+    'admin_role_name' => [
+        'superAdmin',
+        'admin',
+    ],
 ];

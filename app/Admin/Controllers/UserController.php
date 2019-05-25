@@ -24,10 +24,18 @@ class UserController extends Controller
      */
     public function index(Content $content)
     {
+        $is_admin = \Admin::user()->inRoles(config('admin.admin_role_name'));
+
+        if ($is_admin) {
+            $body = $this->adminGrid();
+        } else {
+            $body = $this->grid();
+        }
+
         return $content
             ->header('用户管理')
             ->description('用户列表')
-            ->body($this->grid());
+            ->body($body);
     }
 
 
@@ -53,8 +61,9 @@ class UserController extends Controller
      *
      * @return Grid
      */
-    protected function grid()
+    protected function adminGrid()
     {
+
         $grid = new Grid(new User());
 
         $grid->exporter(new UserCsvExporter());
@@ -88,6 +97,56 @@ class UserController extends Controller
             $actions->disableView();
         });
         $grid->disableCreateButton();
+
+        return $grid;
+    }
+
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        $admin_user = \Admin::user();
+
+        $grid = new Grid(new User());
+
+        // 非管理员只能查看本人
+        $grid->model()->where('admin_id', $admin_user->id);
+
+        $grid->with(['adminUser']);
+
+        $grid->adminUser()->name('渠道名称')->sortable();
+        $grid->name('姓名');
+        $grid->phone('手机号');
+        $grid->age('年龄');
+        $grid->ant_scores('芝麻分');
+        $grid->registered_at('注册时间')->sortable();
+
+        // 过滤器
+        $grid->filter(function (Grid\Filter $filter) {
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            $filter->column(6, function ($filter) {
+                $filter->like('phone', '手机号');
+                $filter->like('name', '姓名');
+                $filter->between('registered_at', '注册时间')->datetime()->default([
+                    'start' => Carbon::now()->startOfDay(),
+                    'end'   => Carbon::now()->endOfDay(),
+                ]);
+            });
+        });
+
+        $grid->actions(function (Grid\Displayers\Actions $actions) {
+            $actions->disableDelete();
+            $actions->disableEdit();
+            $actions->disableView();
+        });
+        $grid->disableCreateButton();
+        $grid->disableExport();
 
         return $grid;
     }

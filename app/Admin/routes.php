@@ -30,6 +30,6 @@ Route::group([
     // 客户登录日志
     $router->resource('customer-login', UserLoginController::class);
 
-    // 客户登录日志
+    // 客户申请日志
     $router->resource('customer-apply', UserApplyProductController::class);
 });
