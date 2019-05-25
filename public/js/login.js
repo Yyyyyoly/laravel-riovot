@@ -55,13 +55,15 @@ $(function () {
                         'X-CSRF-TOKEN': $('#_token').val()
                     },
                     data: {
-                        'phone': phone
+                        'phone': phone,
+                        'type':'register'
                     },
                     dataType: "json",
                     success: function (data) {
                         timeDown();
                     },
                     error: function (error) {
+                        showWin(error.reason);
                         clickStatus = false;
                     }
                 });
@@ -129,7 +131,7 @@ $(function () {
                 console.log(data);
             },
             error: function (error) {
-                console.log(error)
+                showWin(error.reason);
             }
         });
     });
@@ -160,7 +162,7 @@ $(function () {
                 console.log(data);
             },
             error: function (error) {
-                console.log(error)
+                showWin(error.reason);
             }
         });
     });
@@ -200,13 +202,15 @@ $(function () {
                         'X-CSRF-TOKEN': $('#_token').val()
                     },
                     data: {
-                        'phone': phone
+                        'phone': phone,
+                        'type':'forget'
                     },
                     dataType: "json",
                     success: function (data) {
                         timeDownSet();
                     },
                     error: function (error) {
+                        showWin(error.reason);
                         clickStatusSet = false;
                     }
                 });
@@ -263,7 +267,7 @@ $(function () {
                 window.location.href = '/web/user/login/' + hashId + '';
             },
             error: function (error) {
-                console.log(error)
+                showWin(error.reason);
             }
         });
     });
