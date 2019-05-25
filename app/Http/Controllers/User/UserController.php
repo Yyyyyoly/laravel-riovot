@@ -20,6 +20,7 @@ class UserController extends Controller
     {
         $now = Carbon::now();
         $phone = request('phone');
+        $type = request('type', 'register');
         if (empty($phone)) {
             return response()->json(['success' => false, 'reason' => '手机号不能为空'], 400);
         }
@@ -46,7 +47,11 @@ class UserController extends Controller
         $sms->save();
 
         // 发送验证码
-        $rtn = AlibabaCloudService::sendRegisterSmsCode($phone, $sms_code);
+        if ($type == 'register') {
+            $rtn = AlibabaCloudService::sendRegisterSmsCode($phone, $sms_code);
+        } else {
+            $rtn = AlibabaCloudService::sendResetPasswordSmsCode($phone, $sms_code);
+        }
         if (!$rtn) {
             return response()->json(['success' => false, 'reason' => '验证码发送失败，请重试'], 500);
         }
