@@ -63,7 +63,7 @@ $(function () {
                         if (data.success) {
                             timeDown();
                         } else {
-                            showWin(error.reason);
+                            showWin(data.reason);
                         }
 
                     },
@@ -135,7 +135,7 @@ $(function () {
                 if (data.success) {
                     window.location.href = '/web/product/info/' + hashId + '';
                 } else {
-                    showWin(error.reason);
+                    showWin(data.reason);
                 }
 
             },
@@ -222,7 +222,7 @@ $(function () {
                         if (data.success) {
                             timeDownSet();
                         } else {
-                            showWin(error.reason);
+                            showWin(data.reason);
                         }
                     },
                     error: function (error) {
@@ -283,7 +283,7 @@ $(function () {
                 if (data.success) {
                     window.location.href = '/web/user/login/' + hashId + '';
                 } else {
-                    showWin(error.reason);
+                    showWin(data.reason);
                 }
             },
             error: function (error) {
