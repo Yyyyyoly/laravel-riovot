@@ -128,13 +128,14 @@ class UserLoginController extends Controller
             });
         });
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
-            $actions->disableView();
-            $actions->disableEdit();
-            $actions->disableDelete();
-        });
+        $grid->disableActions();
         $grid->disableCreateButton();
         $grid->disableExport();
+        $grid->tools(function ($tools) {
+            $tools->batch(function ($batch) {
+                $batch->disableDelete();
+            });
+        });
 
         return $grid;
     }

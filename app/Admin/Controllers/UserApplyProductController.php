@@ -103,7 +103,7 @@ class UserApplyProductController extends Controller
     protected function grid()
     {
         $admin_user = \Admin::user();
-        
+
         $grid = new Grid(new UserApplyProduct());
 
         // 非管理员只能查看本人
@@ -133,13 +133,14 @@ class UserApplyProductController extends Controller
             });
         });
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
-            $actions->disableView();
-            $actions->disableEdit();
-            $actions->disableDelete();
-        });
+        $grid->disableActions();
         $grid->disableCreateButton();
         $grid->disableExport();
+        $grid->tools(function ($tools) {
+            $tools->batch(function ($batch) {
+                $batch->disableDelete();
+            });
+        });
 
         return $grid;
     }

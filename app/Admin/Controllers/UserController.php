@@ -140,13 +140,14 @@ class UserController extends Controller
             });
         });
 
-        $grid->actions(function (Grid\Displayers\Actions $actions) {
-            $actions->disableDelete();
-            $actions->disableEdit();
-            $actions->disableView();
-        });
+        $grid->disableActions();
         $grid->disableCreateButton();
         $grid->disableExport();
+        $grid->tools(function ($tools) {
+            $tools->batch(function ($batch) {
+                $batch->disableDelete();
+            });
+        });
 
         return $grid;
     }
@@ -182,14 +183,6 @@ class UserController extends Controller
             if ($form->password && $form->model()->password != $form->password) {
                 $form->password = password_hash($form->password, PASSWORD_BCRYPT);
             }
-        });
-
-        $form->tools(function (Form\Tools $tools) {
-            $tools->disableView();
-        });
-
-        $form->footer(function (Form\Footer $footer) {
-            $footer->disableViewCheck();
         });
 
         return $form;

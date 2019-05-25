@@ -66,7 +66,7 @@
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon36.png') }}" />
-				<input type="tel" id="number" placeholder="清填写您的芝麻分" />
+				<input type="tel" id="number" placeholder="请填写您的芝麻分" />
 			</div>
 
 			<div class="login-btn" id="register_click">注 册</div>
