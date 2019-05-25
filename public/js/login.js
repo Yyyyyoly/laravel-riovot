@@ -56,11 +56,16 @@ $(function () {
                     },
                     data: {
                         'phone': phone,
-                        'type':'register'
+                        'type': 'register'
                     },
                     dataType: "json",
                     success: function (data) {
-                        timeDown();
+                        if (data.success) {
+                            timeDown();
+                        } else {
+                            showWin(error.reason);
+                        }
+
                     },
                     error: function (error) {
                         showWin(error.reason);
@@ -127,8 +132,12 @@ $(function () {
             data: params,
             dataType: "json",
             success: function (data) {
-                window.location.href = '/web/product/info/' + hashId + '';
-                console.log(data);
+                if (data.success) {
+                    window.location.href = '/web/product/info/' + hashId + '';
+                } else {
+                    showWin(error.reason);
+                }
+
             },
             error: function (error) {
                 showWin(error.reason);
@@ -158,8 +167,11 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                window.location.href = '/web/product/info/' + hashId + '';
-                console.log(data);
+                if (data.success) {
+                    window.location.href = '/web/product/info/' + hashId + '';
+                } else {
+                    showWin(data.reason);
+                }
             },
             error: function (error) {
                 showWin(error.reason);
@@ -203,11 +215,15 @@ $(function () {
                     },
                     data: {
                         'phone': phone,
-                        'type':'forget'
+                        'type': 'forget'
                     },
                     dataType: "json",
                     success: function (data) {
-                        timeDownSet();
+                        if (data.success) {
+                            timeDownSet();
+                        } else {
+                            showWin(error.reason);
+                        }
                     },
                     error: function (error) {
                         showWin(error.reason);
@@ -254,7 +270,7 @@ $(function () {
             return;
         }
         params.password = $('#s_password').val();
-      
+
         $.ajax({
             type: "POST",
             url: "/web/user/forget",
@@ -264,12 +280,16 @@ $(function () {
             data: params,
             dataType: "json",
             success: function (data) {
-                window.location.href = '/web/user/login/' + hashId + '';
+                if (data.success) {
+                    window.location.href = '/web/user/login/' + hashId + '';
+                } else {
+                    showWin(error.reason);
+                }
             },
             error: function (error) {
                 showWin(error.reason);
             }
         });
     });
-    
+
 })
