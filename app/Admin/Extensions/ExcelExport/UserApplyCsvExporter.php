@@ -21,7 +21,7 @@ use App\Models\UserApplyProduct;
 use App\Models\UserLoginLog;
 use App\Models\Video;
 use App\Models\VideoCategory;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Encore\Admin\Grid;
 use Encore\Admin\Grid\Exporter;

@@ -6,7 +6,7 @@ use App\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use App\Models\UserApplyProduct;
 use App\Models\UserStatistic;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;

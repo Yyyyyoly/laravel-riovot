@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminUser;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;

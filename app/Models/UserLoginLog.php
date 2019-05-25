@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\AdminUser;
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class UserLoginLog extends Model

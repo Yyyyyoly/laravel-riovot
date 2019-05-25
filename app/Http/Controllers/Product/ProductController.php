@@ -6,7 +6,7 @@ use App\Models\AdminUser;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\UserApplyProduct;
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller

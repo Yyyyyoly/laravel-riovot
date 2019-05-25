@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Constants\AdminCacheKeys;
 use App\Models\UserApplyProduct;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

@@ -4,7 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Extensions\ExcelExport\UserCsvExporter;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;

@@ -7,7 +7,7 @@ use App\Constants\CacheKeys;
 use App\Models\SmsCode;
 use App\Models\UserLoginLog;
 use App\Services\AlibabaCloudService;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 
