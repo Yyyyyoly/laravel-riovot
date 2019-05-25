@@ -64,7 +64,7 @@ class HomeController extends Controller
     public function registerRank()
     {
         $redis_key = AdminCacheKeys::getRegisterRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 14, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
 
@@ -91,7 +91,7 @@ class HomeController extends Controller
     public function applyRank()
     {
         $redis_key = AdminCacheKeys::getApplyRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 14, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
 
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
