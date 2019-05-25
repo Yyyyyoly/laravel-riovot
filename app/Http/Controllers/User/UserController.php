@@ -227,12 +227,15 @@ class UserController extends Controller
         $user->ant_scores = $ant_scores > 0 ? $ant_scores : 0;
         $user->age = $age > 0 ? $age : 0;
         $user->registered_at = Carbon::now();
-        $user->save();
 
-        // 登录成功,写入session和客户登录日志
-        $this->addLoginLog($user, $admin_id);
+        if ($user->save()) {
+            // 登录成功,写入session和客户登录日志
+            $this->addLoginLog($user, $admin_id);
 
-        return response()->json(['success' => true], 200);
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false, 'reason' => '服务器开小差，请稍后再试'], 500);
+        }
     }
 
 

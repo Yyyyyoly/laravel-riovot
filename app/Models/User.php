@@ -21,7 +21,7 @@ class User extends Model
      */
     public function adminUser()
     {
-       return $this->belongsTo(AdminUser::class, 'admin_id');
+        return $this->belongsTo(AdminUser::class, 'admin_id');
     }
 
     /**
@@ -29,13 +29,13 @@ class User extends Model
      *
      * @param $id
      *
-     * @return array
+     * @return string
      */
     public static function decodeAdminId($id)
     {
         $hash = new Hashids(config('app.name'), 6);
 
-        return $hash->decode($id);
+        return intval($hash->decode($id)[0]) ?? 0;
     }
 
 

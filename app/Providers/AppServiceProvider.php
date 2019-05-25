@@ -13,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -23,6 +22,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (false && config('app.debug')) {
+            \DB::listen(function ($query) {
+                \Log::info(print_r([
+                    'sql'      => $query->sql,
+                    'bindings' => $query->bindings,
+                    'time'     => $query->time,
+                ], true));
+            });
+        }
     }
 }
