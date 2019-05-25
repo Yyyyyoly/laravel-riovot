@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AdminUser;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -22,10 +23,9 @@ class UserStatistic extends Model
     public function paginate($perPage = 15)
     {
         // table_name
-        $admin_model = config('admin.database.users_model');
-        $admin_table = $admin_model::getModel()->getTable();
-        $user_table = User::getModel()->getTable();
-        $user_apply_table = UserApplyProduct::getModel()->getTable();
+        $admin_table = (new AdminUser())->getTable();
+        $user_table = (new User)->getTable();
+        $user_apply_table = (new UserApplyProduct)->getTable();
 
         // where条件
         // 时间
@@ -41,7 +41,7 @@ class UserStatistic extends Model
         $start = ($page - 1) * $perPage;
 
         // 总条数
-        $total = empty($name) ? $admin_model::count() : $admin_model::where('name', 'like', "%{$name}%")->count();
+        $total = empty($name) ? AdminUser::count() : AdminUser::where('name', 'like', "%{$name}%")->count();
 
         // 排序条件
         $sort = request('_sort', ['column' => 'id', 'type' => 'asc']);

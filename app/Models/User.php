@@ -21,9 +21,7 @@ class User extends Model
      */
     public function adminUser()
     {
-        $userModel = config('admin.database.users_model');
-
-        return $this->belongsTo($userModel, 'admin_id');
+       return $this->belongsTo(AdminUser::class, 'admin_id');
     }
 
     /**
@@ -54,4 +52,5 @@ class User extends Model
 
         return $hash->encode($id);
     }
+
 }

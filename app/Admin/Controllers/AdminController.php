@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use App\User;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -67,9 +68,10 @@ class AdminController extends Controller
      */
     protected function grid()
     {
-        $userModel = config('admin.database.users_model');
+        $grid = new Grid(new AdminUser());
 
-        $grid = new Grid(new $userModel());
+        // 排除超级管理员账号
+        $grid->model()->where('id', '!=', 1);
 
         $grid->id('坐席ID')->sortable();
         $grid->username('登录用户名');
@@ -143,7 +145,9 @@ class AdminController extends Controller
 
         $form->ignore(['password_confirmation']);
 
-        $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
+        // 排除超级管理员
+        $form->multipleSelect('roles', trans('admin.roles'))
+            ->options($roleModel::all()->where('id', '!=', 1)->pluck('name', 'id'));
 
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));

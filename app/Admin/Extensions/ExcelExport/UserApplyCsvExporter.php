@@ -9,6 +9,7 @@
 
 namespace App\Admin\Extensions\ExcelExport;
 
+use App\Models\AdminUser;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\NewsDailyReadStatistics;
@@ -87,11 +88,10 @@ class UserApplyCsvExporter extends AbstractExporter
     {
         $params = Input::all();
 
-        $admin_model = config('admin.database.users_model');
-        $admin_table = $admin_model::getModel()->getTable();
-        $user_table = User::getModel()->getTable();
-        $user_apply_table = UserApplyProduct::getModel()->getTable();
-        $product_table = Product::getModel()->getTable();
+        $admin_table = (new AdminUser)->getTable();
+        $user_table = (new User)->getTable();
+        $user_apply_table = (new UserApplyProduct)->getTable();
+        $product_table = (new Product)->getTable();
 
         $q = \DB::table($user_apply_table)
             ->leftJoin($admin_table, "{$user_apply_table}.admin_id", '=', "{$admin_table}.id")

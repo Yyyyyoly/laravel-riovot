@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AdminUser;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,7 @@ class UserApplyProduct extends Model
      */
     public function adminUser()
     {
-        $userModel = config('admin.database.users_model');
-
-        return $this->belongsTo($userModel, 'admin_id');
+        return $this->belongsTo(AdminUser::class, 'admin_id');
     }
 
     /**

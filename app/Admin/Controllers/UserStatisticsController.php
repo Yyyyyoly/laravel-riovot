@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use App\Models\UserApplyProduct;
 use App\Models\UserStatistic;
@@ -56,8 +57,7 @@ class UserStatisticsController extends Controller
                 ->where('created_at', '<=', $end_time);
             // 如果有渠道限制
             if ($name) {
-                $admin_model = config('admin.database.users_model');
-                $admin_ids = $admin_model::where('name', 'like', "%{$name}%")->get()->pluck('id')->toArray();
+                $admin_ids = AdminUser::where('name', 'like', "%{$name}%")->get()->pluck('id')->toArray();
                 $user_register_sql->whereIn('admin_id', $admin_ids);
                 $user_apply_sql->whereIn('admin_id', $admin_ids);
             }
