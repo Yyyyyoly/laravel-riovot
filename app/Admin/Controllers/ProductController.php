@@ -102,7 +102,12 @@ class ProductController extends Controller
 
             // 在这里添加字段过滤器
             $filter->column(6, function ($filter) {
-                $filter->like('product_type.name', '类别名称');
+                $product_types = ProductType::where('is_show', 1)
+                    ->orderByDesc('updated_at')
+                    ->get()
+                    ->pluck('name', 'id')
+                    ->toArray();
+                $filter->equal('productType.id', '类别名称')->select($product_types);
                 $filter->like('name', '产品名称');
                 $filter->equal('is_show', '是否显示')->radio([
                     1 => '是',
