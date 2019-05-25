@@ -64,7 +64,7 @@ class HomeController extends Controller
     public function registerRank()
     {
         $redis_key = AdminCacheKeys::getRegisterRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, 14, 'withscores');
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
 
@@ -76,7 +76,7 @@ class HomeController extends Controller
             ];
         }
 
-        $my_rank = redis()->zrank($redis_key, \Admin::user()->id);
+        $my_rank = redis()->zrevrank($redis_key, \Admin::user()->id);
         $my_rank = is_null($my_rank) ? '暂未上榜' : $my_rank + 1;
 
         return view('admin.dashboard.register-rank', ['rank_list' => $rank_list, 'my_rank' => $my_rank]);
@@ -91,7 +91,7 @@ class HomeController extends Controller
     public function applyRank()
     {
         $redis_key = AdminCacheKeys::getApplyRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, 14, 'withscores');
 
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
@@ -104,7 +104,7 @@ class HomeController extends Controller
             ];
         }
 
-        $my_rank = redis()->zrank($redis_key, \Admin::user()->id);
+        $my_rank = redis()->zrevrank($redis_key, \Admin::user()->id);
         $my_rank = is_null($my_rank) ? '暂未上榜' : $my_rank + 1;
 
         return view('admin.dashboard.apply-rank', ['rank_list' => $rank_list, 'my_rank' => $my_rank]);
