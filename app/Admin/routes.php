@@ -18,6 +18,9 @@ Route::group([
     // 产品管理
     $router->resource('product', ProductController::class);
 
+    // 渠道产品列表
+    $router->get('product-qudao', 'ProductController@qudaoList');
+
     // 渠道管理
     $router->resource('user', AdminController::class);
 

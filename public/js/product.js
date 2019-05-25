@@ -1,5 +1,4 @@
 $(function () {
-	console.log(fake_list)
 	var length = fake_list.length;
 	var sum = 24 * length * 60;
 	var html = '';

@@ -9,6 +9,8 @@ use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
+use Encore\Admin\Layout\Row;
+use Encore\Admin\Widgets\Tab;
 
 
 class ProductController extends Controller
@@ -167,5 +169,66 @@ class ProductController extends Controller
         });
 
         return $form;
+    }
+
+    /**
+     * 渠道显示的产品列表
+     *
+     * @return Content
+     */
+    public function qudaoList()
+    {
+
+        $tab = new Tab();
+
+        $product_list = Product::getProductList();
+        foreach ($product_list as $type_list) {
+            $products = $type_list['products'];
+            $row = new Row();
+            foreach ($products as $product) {
+                $html = $this->renderProductIcon(
+                    $product['icon_url'],
+                    $product['name'],
+                    $product['download_nums'],
+                    $product['desc']
+                );
+
+                $row->column(2, $html);
+            }
+
+            $tab->add($type_list['type_name'], $row->render());
+        }
+
+        return (new Content())
+            ->header('产品管理')
+            ->description('产品列表')
+            ->body($tab);
+    }
+
+    /**
+     * 产品模块显示
+     *
+     * @param $icon_url
+     * @param $product_name
+     * @param $downloads_num
+     * @param $desc
+     *
+     * @return string
+     */
+    private function renderProductIcon($icon_url, $product_name, $downloads_num, $desc)
+    {
+        return
+            <<<EOF
+<div style="position:relative;padding: 5px;box-shadow: 1px 1px 4px #c9daf6;background: #fff;border: 1px solid #c9daf6;
+border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-left: 2%;">
+<i style="color: #c9daf6;position: absolute;font-size:10px;right: 2px;top: 1px;"></i>
+<img style="width: 50px;height: 50px;" src="{$icon_url}" />
+<div style="text-align: center;background: #FAFAFA;border-bottom: 1px solid #E5E5E7;line-height: 35px;color: #EC983E;
+display: flex;justify-content: space-between;align-items: center;">{$product_name}</div>
+<div style="color: #e95656"><i class="icon-download-alt"></i>{$downloads_num}</span></div>
+<div style="color: #666;font-size: 12px;">{$desc}</div>
+</div>
+EOF;
+
     }
 }

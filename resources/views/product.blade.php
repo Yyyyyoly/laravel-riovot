@@ -12,7 +12,6 @@
 	var product_list = JSON.parse(decodeURIComponent("{!! rawurlencode(json_encode($product_list)) !!}"));
 	var fake_list = JSON.parse(decodeURIComponent("{!! rawurlencode(json_encode($fake_list)) !!}"));
 	var hashId = '{{$admin_hash_id}}'
-	console.log(product_list)
 </script>
 
 <body>
