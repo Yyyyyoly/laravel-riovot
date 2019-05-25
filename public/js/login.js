@@ -59,7 +59,7 @@ $(function () {
                     },
                     dataType: "json",
                     success: function (data) {
-                        timeDownSet();
+                        timeDown();
                     },
                     error: function (error) {
                         clickStatus = false;
