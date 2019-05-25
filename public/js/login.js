@@ -14,7 +14,7 @@ $(function () {
         $('#msg_win').show(1000);
         setTimeout(function () {
             $('#msg_win').hide(1000);
-        }, 1000)
+        }, 2000)
     }
     //验证手机号码准确性
     function checkTel(tel) {
