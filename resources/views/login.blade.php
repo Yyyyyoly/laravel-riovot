@@ -9,6 +9,10 @@
 <link type="text/css" href="{{ asset('/css/common.css') }}" rel="stylesheet">
 <link type="text/css" href="{{ asset('/css/login.css') }}" rel="stylesheet">
 
+<script>
+	var hashId = '{{$admin_hash_id}}';
+	var product_id = '{{$product_id}}';
+</script>
 
 <body>
 	<div class="app">
@@ -21,13 +25,13 @@
 		<div class="app-login hide" id="login_show">
 			<div class="app-login-cell">
 				<i class="icon-user"></i>
-				<input type="tel" placeholder="请您输入帐号" />
+				<input type="tel" id="login_account" placeholder="请您输入帐号" />
 			</div>
 			<div class="app-login-cell">
 				<i class="icon-lock"></i>
-				<input type="password" placeholder="请您输入密码" />
+				<input type="password" id="login_password" placeholder="请您输入密码" />
 			</div>
-			<div class="login-btn">登 录</div>
+			<div class="login-btn" id="login_click">登 录</div>
 			<div class="login-regist">
 				<div id="forget">忘记密码</div>
 				<div id="register">还没帐号？去注册>></div>
@@ -37,58 +41,62 @@
 		<div class="app-login hide" id="register_show">
 			<div class="regist-login" id="login">若已注册，去登录>></div>
 			<div class="app-cell-phone">
-				<input type="tel" placeholder="请您输入手机号" />
-				<div>获取验证码</div>
+				<input type="tel" id="phone" placeholder="请您输入手机号" />
+				<div id="r_get_code">获取验证码</div>
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon33.png') }}" />
-				<input type="tel" placeholder="请您输入验证码" />
+				<input type="tel" id="code" placeholder="请您输入验证码" />
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon35.png') }}" />
-				<input type="text" placeholder="请您输入姓名" />
+				<input type="text" id="name" placeholder="请您输入姓名" />
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon35.png') }}" />
-				<input type="password" placeholder="请设置你的密码" />
+				<input type="password" id="password" placeholder="请设置你的密码" />
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon35.png') }}" />
-				<input type="password" placeholder="请确认您的密码" />
+				<input type="password" id="confirm_password" placeholder="请确认您的密码" />
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon37.png') }}" />
-				<input type="tel" placeholder="请填写您的年龄" />
+				<input type="tel" id="age" placeholder="请填写您的年龄" />
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon36.png') }}" />
-				<input type="tel" placeholder="清填写您的芝麻分" />
+				<input type="tel" id="number" placeholder="清填写您的芝麻分" />
 			</div>
 
-			<div class="login-btn">注 册</div>
+			<div class="login-btn" id="register_click">注 册</div>
 
 		</div>
 
 		<div class="app-login hide" id="forget_show">
 			<div class="app-cell-phone">
-				<input type="tel" placeholder="请您输入手机号" />
-				<div>获取验证码</div>
+				<input type="tel" id="s_phone" placeholder="请您输入手机号" />
+				<div id="s_get_code">获取验证码</div>
 			</div>
 			<div class="app-login-cell">
 				<img src="{{ asset('/images/icon33.png') }}" />
-				<input type="tel" placeholder="请您输入验证码" />
+				<input type="tel" id="s_code" placeholder="请您输入验证码" />
 			</div>
-			<div class="app-login-cell">
-				<img src="{{ asset('/images/icon35.png') }}" />
-				<input type="password" placeholder="请设置你的密码" />
-			</div>
-			<div class="app-login-cell">
-				<img src="{{ asset('/images/icon35.png') }}" />
-				<input type="password" placeholder="请确认您的密码" />
-			</div>
-			<div class="login-btn">修改密码</div>
 
+			<div class="app-login-cell">
+				<img src="{{ asset('/images/icon35.png') }}" />
+				<input type="password" id="s_password" placeholder="请设置你的密码" />
+			</div>
+			<div class="app-login-cell">
+				<img src="{{ asset('/images/icon35.png') }}" />
+				<input type="password" id="s_confirm_password" placeholder="请确认您的密码" />
+			</div>
+			<div class="login-btn" id="reset_click">修改密码</div>
 		</div>
+	</div>
+	<input type="hidden" id="_token" value="{{ csrf_token() }}">
+	<div class="msg-win" id="msg_win">
+		<div class="msg-win-ctn" id="msg"></div>
 	</div>
 </body>
 
@@ -103,7 +111,6 @@
 			var _temp = temp[i].split('=');
 			obj[_temp[0]] = _temp[1];
 		}
-		console.log(obj)
 		if(obj.status){
 			if(obj.status =='register'){
 				show_id = '#register_show';

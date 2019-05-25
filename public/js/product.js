@@ -77,22 +77,9 @@ $(function () {
 		}
 	});
 });
-function jumpDonwload(id){
-	window.location.href = '/web/product/apply/E7w6qd?product_id'+id;
+function jumpDonwload(id) {
+	window.location.href = '/web/product/apply/' + hashId + '?product_id=' + id;
 }
-function showInfo(){
-	window.location.href = '/web/user/info/E7w6qd';
+function showInfo() {
+	window.location.href = '/web/user/info/' + hashId;
 }
-
-
-
-//<div class="product-list">
-//<div class="product-list-cell">
-//	<i class="icon-circle-blank i-right"></i>
-//	<img class="cell-img" src="" />
-//	<div class="title">测试数据</div>
-//	<div class="num"><i class="icon-download-alt"></i>123333</span></div>
-//	<div class="desc">放钱快</div>
-//</div>
-// 
-//</div>

@@ -63,3 +63,21 @@ a {
   color: #E5E5E5;
   font-size: 22px;
 }
+
+.msg-win{
+  position: fixed;
+  width: 60%;
+  top:35%;
+  left: 20%;
+  display: none;
+}
+ 
+.msg-win-ctn{
+  width: 100%;
+  padding: 25px 15px;
+  background: rgba(0, 0, 0, .5);
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 6px;
+}
