@@ -178,9 +178,10 @@ class ProductController extends Controller
      */
     public function qudaoList()
     {
+        // 引入图标库
+        \Admin::css(asset('/css/font-awesome.min.css'));
 
         $tab = new Tab();
-
         $product_list = Product::getProductList();
         foreach ($product_list as $type_list) {
             $products = $type_list['products'];
@@ -223,8 +224,7 @@ class ProductController extends Controller
 border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-left: 2%;">
 <i style="color: #c9daf6;position: absolute;font-size:10px;right: 2px;top: 1px;"></i>
 <img style="width: 50px;height: 50px;" src="{$icon_url}" />
-<div style="text-align: center;background: #FAFAFA;border-bottom: 1px solid #E5E5E7;line-height: 35px;color: #EC983E;
-display: flex;justify-content: space-between;align-items: center;">{$product_name}</div>
+<div style="text-align: center;background: #FAFAFA;border-bottom: 1px solid #E5E5E7;line-height: 35px;color: #EC983E;">{$product_name}</div>
 <div style="color: #e95656"><i class="icon-download-alt"></i>{$downloads_num}</span></div>
 <div style="color: #666;font-size: 12px;">{$desc}</div>
 </div>
