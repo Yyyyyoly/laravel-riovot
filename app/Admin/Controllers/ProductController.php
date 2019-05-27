@@ -185,17 +185,17 @@ class ProductController extends Controller
         $product_list = Product::getProductList();
         foreach ($product_list as $type_list) {
             $products = $type_list['products'];
-            $row = new Row();
+
+            $html = '';
             foreach ($products as $product) {
-                $html = $this->renderProductIcon(
+                $html .= $this->renderProductIcon(
                     $product['icon_url'],
                     $product['name'],
                     $product['download_nums'],
                     $product['desc']
                 );
-
-                $row->column(2, $html);
             }
+            $row = new Row($html);
 
             $tab->add($type_list['type_name'], $row->render());
         }
@@ -220,6 +220,7 @@ class ProductController extends Controller
     {
         return
             <<<EOF
+<div class="col-md-2 col-xs-6">
 <div style="position:relative;padding: 5px;box-shadow: 1px 1px 4px #c9daf6;background: #fff;border: 1px solid #c9daf6;
 border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-left: 2%;">
 <i style="color: #c9daf6;position: absolute;font-size:10px;right: 2px;top: 1px;"></i>
@@ -227,6 +228,7 @@ border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-l
 <div style="text-align: center;background: #FAFAFA;border-bottom: 1px solid #E5E5E7;line-height: 35px;color: #EC983E;">{$product_name}</div>
 <div style="color: #e95656"><i class="icon-download-alt"></i>{$downloads_num}</span></div>
 <div style="color: #666;font-size: 12px;">{$desc}</div>
+</div>
 </div>
 EOF;
 
