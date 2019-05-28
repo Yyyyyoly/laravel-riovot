@@ -180,7 +180,7 @@ class ProductController extends Controller
     {
         // 引入图标库
         \Admin::css(asset('/css/font-awesome.min.css'));
-
+      
         $tab = new Tab();
         $product_list = Product::getProductList();
         foreach ($product_list as $type_list) {
@@ -221,7 +221,7 @@ class ProductController extends Controller
         return
             <<<EOF
 <div class="col-md-2 col-xs-6">
-<div style="position:relative;padding: 5px;box-shadow: 1px 1px 4px #c9daf6;background: #fff;border: 1px solid #c9daf6;
+<div style="position:relative;padding: 5px;box-shadow: 1px 1px 4px #c9daf6;background: #fff;border: 1px solid #c9daf6;height:100%;
 border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-left: 2%;">
 <i style="color: #c9daf6;position: absolute;font-size:10px;right: 2px;top: 1px;"></i>
 <img style="width: 50px;height: 50px;" src="{$icon_url}" />
