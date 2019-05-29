@@ -22,7 +22,7 @@ class RankStatistics extends Command
      *
      * @var string
      */
-    protected $description = '统计当日排行榜，5分钟更新一次';
+    protected $description = '统计当日排行榜，1分钟更新一次';
 
     /**
      * Create a new command instance.
@@ -59,7 +59,7 @@ class RankStatistics extends Command
     {
         $timestamp_cache_key = AdminCacheKeys::getRegisterLastUpdateTimestamp();
         $start_time_stamp = redis()->get($timestamp_cache_key);
-        $start = empty($start_time_stamp) ? $time->copy()->addMinute(-5) : Carbon::createFromTimestamp($start_time_stamp);
+        $start = empty($start_time_stamp) ? $time->copy()->addMinute(-1) : Carbon::createFromTimestamp($start_time_stamp);
         $end = $time;
 
         $redis_key = AdminCacheKeys::getRegisterRankKey($time);
@@ -90,7 +90,7 @@ class RankStatistics extends Command
     {
         $timestamp_cache_key = AdminCacheKeys::getApplyLastUpdateTimestamp();
         $start_time_stamp = redis()->get($timestamp_cache_key);
-        $start = empty($start_time_stamp) ? $time->copy()->addMinute(-5) : Carbon::createFromTimestamp($start_time_stamp);
+        $start = empty($start_time_stamp) ? $time->copy()->addMinute(-1) : Carbon::createFromTimestamp($start_time_stamp);
         $end = $time;
 
         $redis_key = AdminCacheKeys::getApplyRankKey($time);
