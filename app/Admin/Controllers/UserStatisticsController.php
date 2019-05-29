@@ -98,16 +98,16 @@ class UserStatisticsController extends Controller
         })->sortable();
 
         // 过滤器
-        $grid->filter(function (Grid\Filter $filter) {
+        $grid->filter(function (Grid\Filter $filter) use ($start_time, $end_time) {
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->column(6, function ($filter) {
+            $filter->column(6, function ($filter) use ($start_time, $end_time) {
                 $filter->like('name', '渠道名称');
                 $filter->between('time', '时间')->datetime()->default([
-                    'start' => Carbon::now()->startOfDay(),
-                    'end'   => Carbon::now()->endOfDay(),
+                    'start' => $start_time,
+                    'end'   => $end_time,
                 ]);
             });
         });

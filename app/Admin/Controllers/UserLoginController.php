@@ -56,6 +56,13 @@ class UserLoginController extends Controller
      */
     protected function adminGrid()
     {
+        $created_at = request('created_at');
+        if (empty($created_at)) {
+            $start_at = Carbon::now()->startOfDay();
+            $end_at = Carbon::now()->endOfDay();
+            request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
+        }
+
         $grid = new Grid(new UserLoginLog());
 
         $grid->exporter(new UserLoginCsvExporter());
@@ -76,10 +83,7 @@ class UserLoginController extends Controller
                 $filter->like('adminUser.name', '渠道名称');
                 $filter->like('user.name', '用户姓名');
                 $filter->like('user.phone', '手机号');
-                $filter->between('created_at', '登录时间')->datetime()->default([
-                    'start' => Carbon::now()->startOfDay(),
-                    'end'   => Carbon::now()->endOfDay(),
-                ]);
+                $filter->between('created_at', '登录时间')->datetime();
             });
         });
 

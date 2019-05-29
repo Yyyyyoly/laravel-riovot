@@ -63,6 +63,12 @@ class UserController extends Controller
      */
     protected function adminGrid()
     {
+        $registered_at = request('registered_at');
+        if (empty($registered_at)) {
+            $start_at = Carbon::now()->startOfDay();
+            $end_at = Carbon::now()->endOfDay();
+            request()->offsetSet('registered_at', ['start' => $start_at, 'end' => $end_at]);
+        }
 
         $grid = new Grid(new User());
 
@@ -86,10 +92,7 @@ class UserController extends Controller
                 $filter->like('adminUser.name', '渠道名称');
                 $filter->like('phone', '手机号');
                 $filter->like('name', '姓名');
-                $filter->between('registered_at', '注册时间')->datetime()->default([
-                    'start' => Carbon::now()->startOfDay(),
-                    'end'   => Carbon::now()->endOfDay(),
-                ]);
+                $filter->between('registered_at', '注册时间')->datetime();
             });
         });
 
