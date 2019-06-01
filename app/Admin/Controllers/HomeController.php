@@ -25,7 +25,7 @@ class HomeController extends Controller
         $link = route('productView', ['admin_hash_id' => User::encodeAdminId(\Admin::user()->id)]);
 
         return $content
-            ->header('今日实时Top10排行榜')
+            ->header('今日实时排行榜')
             ->description('同分数排名不分先后')
             ->row("我的专属链接：<font style='color: indianred'>{$link}</font>")
             ->row($this->title())
@@ -68,7 +68,7 @@ class HomeController extends Controller
     public function registerRank()
     {
         $redis_key = AdminCacheKeys::getRegisterRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, -1, 'withscores');
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
 
@@ -95,7 +95,7 @@ class HomeController extends Controller
     public function applyRank()
     {
         $redis_key = AdminCacheKeys::getApplyRankKey(Carbon::now());
-        $results = redis()->zrevrange($redis_key, 0, 9, 'withscores');
+        $results = redis()->zrevrange($redis_key, 0, -1, 'withscores');
 
         $ids = array_keys($results);
         $name_list = AdminUser::whereIn('id', $ids)->get()->pluck('name', 'id')->toArray();
