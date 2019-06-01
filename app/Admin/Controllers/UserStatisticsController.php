@@ -51,10 +51,16 @@ class UserStatisticsController extends Controller
      */
     protected function grid()
     {
-        $time = request('time');
-        $start_time = empty($time) ? Carbon::now()->startOfDay() : Carbon::parse($time['start']);
-        $end_time = empty($time) ? Carbon::now()->endOfDay() : Carbon::parse($time['end']);
         $name = request('name');
+        $time = request('time');
+        if (empty($time)) {
+            $start_time = Carbon::now()->startOfDay();
+            $end_time = Carbon::now()->endOfDay();
+            request()->offsetSet('created_at', ['start' => $start_time, 'end' => $end_time]);
+        } else {
+            $start_time = empty($time['start']) ? null : Carbon::parse($time['start']);
+            $end_time = empty($time['end']) ? null : Carbon::parse($time['end']);
+        }
 
         $grid = new Grid(new UserStatistic());
 
@@ -62,12 +68,20 @@ class UserStatisticsController extends Controller
             $row = new Row();
 
             // 用户注册汇总
-            $user_register_sql = User::where('registered_at', '>=', $start_time)
-                ->where('registered_at', '<=', $end_time);
+            $user_register_sql = User::query();
             // 用户申请汇总
-            $user_apply_sql = UserApplyProduct::where('created_at', '>=', $start_time)
-                ->where('created_at', '<=', $end_time);
-            // 如果有渠道限制
+            $user_apply_sql = UserApplyProduct::query();
+
+            if ($start_time) {
+                $user_register_sql->where('registered_at', '>=', $start_time);
+                $user_apply_sql->where('created_at', '>=', $start_time);
+            }
+
+            if ($end_time) {
+                $user_register_sql->where('registered_at', '<=', $end_time);
+                $user_apply_sql->where('created_at', '<=', $end_time);
+            }
+
             if ($name) {
                 $admin_ids = AdminUser::where('name', 'like', "%{$name}%")->get()->pluck('id')->toArray();
                 $user_register_sql->whereIn('admin_id', $admin_ids);
@@ -98,17 +112,14 @@ class UserStatisticsController extends Controller
         })->sortable();
 
         // 过滤器
-        $grid->filter(function (Grid\Filter $filter) use ($start_time, $end_time) {
+        $grid->filter(function (Grid\Filter $filter) {
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->column(6, function ($filter) use ($start_time, $end_time) {
+            $filter->column(6, function ($filter) {
                 $filter->like('name', '渠道名称');
-                $filter->between('time', '时间')->datetime()->default([
-                    'start' => $start_time,
-                    'end'   => $end_time,
-                ]);
+                $filter->between('time', '时间')->datetime();
             });
         });
 

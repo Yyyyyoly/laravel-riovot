@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Constants\AdminCacheKeys;
 use App\Models\AdminUser;
 use App\Constants\CacheKeys;
 use App\Models\SmsCode;
@@ -231,6 +232,11 @@ class UserController extends Controller
         if ($user->save()) {
             // 登录成功,写入session和客户登录日志
             $this->addLoginLog($user, $admin_id);
+
+            // 实时更新注册排行榜数据
+            $redis_key = AdminCacheKeys::getRegisterRankKey($now);
+            redis()->zincrby($redis_key, 1, $admin_id);
+            redis()->expireat($redis_key, $now->copy()->addDays(2)->startOfDay());
 
             return response()->json(['success' => true], 200);
         } else {

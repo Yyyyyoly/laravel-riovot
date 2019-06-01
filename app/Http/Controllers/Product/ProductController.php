@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Constants\AdminCacheKeys;
 use App\Models\AdminUser;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\UserApplyProduct;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -59,6 +61,7 @@ class ProductController extends Controller
         $user = session('user_info');
         $user_id = $user['user_id'] ?? 0;
         $product_id = request('product_id');
+        $now = Carbon::now();
 
         // 查询产品是否有效
         $product_table_name = Product::getModel()->getTable();
@@ -93,6 +96,11 @@ class ProductController extends Controller
 
             // 真实下载量+1
             $products->increment('real_download_nums');
+
+            // 实时更新申请排行榜数据
+            $redis_key = AdminCacheKeys::getApplyRankKey($now);
+            redis()->zincrby($redis_key, 1, $admin_id);
+            redis()->expireat($redis_key, $now->copy()->addDays(2)->startOfDay());
         }
 
         // 跳第三方

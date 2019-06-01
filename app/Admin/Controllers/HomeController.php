@@ -26,7 +26,7 @@ class HomeController extends Controller
 
         return $content
             ->header('今日实时Top10排行榜')
-            ->description('排行榜每1分钟更新一次')
+            ->description('同分数排名不分先后')
             ->row("我的专属链接：<font style='color: indianred'>{$link}</font>")
             ->row($this->title())
             ->row(function (Row $row) {
