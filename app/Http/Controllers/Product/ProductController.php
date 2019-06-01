@@ -97,10 +97,14 @@ class ProductController extends Controller
             // 真实下载量+1
             $products->increment('real_download_nums');
 
-            // 实时更新申请排行榜数据
-            $redis_key = AdminCacheKeys::getApplyRankKey($now);
-            redis()->zincrby($redis_key, 1, $admin_id);
-            redis()->expireat($redis_key, $now->copy()->addDays(2)->startOfDay());
+            try {
+                // 实时更新申请排行榜数据
+                $redis_key = AdminCacheKeys::getApplyRankKey($now);
+                redis()->zincrby($redis_key, 1, $admin_id);
+                redis()->expireat($redis_key, $now->copy()->addDays(2)->startOfDay()->getTimestamp());
+            } catch (\Exception $ex) {
+            }
+
         }
 
         // 跳第三方
