@@ -26,17 +26,23 @@
 			@endif
 		</div>
 		<div class="user-detail">
+			@if($is_login)
+			<div>
+				<div class="user-head">
+					<img src="{{ asset("/images/icon29.png")}}" />
+				</div>
+				<div class="user-name">{{$user_name}}</div>、
+				<div><i class="icon-chevron-right"></i></div>
+			</div>
+			@else
 			<div id="register">
 				<div class="user-head">
 					<img src="{{ asset("/images/icon29.png")}}" />
 				</div>
-				@if($is_login)
-				<div class="user-name">{{$user_name}}</div>
-				@else
 				<div class="user-name">未注册</div>
-				@endif
 				<div><i class="icon-chevron-right"></i></div>
 			</div>
+			@endif
 		</div>
 		<div class="about-us">
 			<div class="about-us-cell">
