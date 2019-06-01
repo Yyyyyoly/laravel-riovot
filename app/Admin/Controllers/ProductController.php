@@ -226,7 +226,7 @@ border-radius: 10px 0px 10px 0px;margin-bottom: 10px;text-align: center;margin-l
 <i style="color: #c9daf6;position: absolute;font-size:10px;right: 2px;top: 1px;"></i>
 <img style="width: 50px;height: 50px;" src="{$icon_url}" />
 <div style="text-align: center;background: #FAFAFA;border-bottom: 1px solid #E5E5E7;line-height: 35px;color: #EC983E;
-overflow: hidden;text-overflow:ellipsis">{$product_name}</div>
+overflow: hidden;text-overflow:ellipsis;word-break: keep-all;white-space: nowrap">{$product_name}</div>
 <div style="color: #e95656"><i class="icon-download-alt"></i>{$downloads_num}</span></div>
 <div style="color: #666;font-size: 12px;">{$desc}</div>
 </div>
