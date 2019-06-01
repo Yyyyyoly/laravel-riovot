@@ -113,6 +113,13 @@ class UserApplyProductController extends Controller
         // 非管理员只能查看本人
         $grid->model()->where('admin_id', $admin_user->id);
 
+        $created_at = request('created_at');
+        if (empty($created_at)) {
+            $start_at = Carbon::now()->startOfDay();
+            $end_at = Carbon::now()->endOfDay();
+            request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
+        }
+
         $grid->with(['user', 'product', 'adminUser']);
 
         $grid->adminUser()->name('渠道名称')->sortable();
@@ -130,10 +137,7 @@ class UserApplyProductController extends Controller
                 $filter->like('user.name', '用户姓名');
                 $filter->like('user.phone', '手机号');
                 $filter->like('product.name', '产品名称');
-                $filter->between('created_at', '申请时间')->datetime()->default([
-                    'start' => Carbon::now()->startOfDay(),
-                    'end'   => Carbon::now()->endOfDay(),
-                ]);
+                $filter->between('created_at', '申请时间')->datetime();
             });
         });
 

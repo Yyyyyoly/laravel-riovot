@@ -119,6 +119,13 @@ class UserController extends Controller
         // 非管理员只能查看本人
         $grid->model()->where('admin_id', $admin_user->id);
 
+        $registered_at = request('registered_at');
+        if (empty($registered_at)) {
+            $start_at = Carbon::now()->startOfDay();
+            $end_at = Carbon::now()->endOfDay();
+            request()->offsetSet('registered_at', ['start' => $start_at, 'end' => $end_at]);
+        }
+
         $grid->with(['adminUser']);
 
         $grid->adminUser()->name('渠道名称')->sortable();
@@ -136,10 +143,7 @@ class UserController extends Controller
             $filter->column(6, function ($filter) {
                 $filter->like('phone', '手机号');
                 $filter->like('name', '姓名');
-                $filter->between('registered_at', '注册时间')->datetime()->default([
-                    'start' => Carbon::now()->startOfDay(),
-                    'end'   => Carbon::now()->endOfDay(),
-                ]);
+                $filter->between('registered_at', '注册时间')->datetime();
             });
         });
 
