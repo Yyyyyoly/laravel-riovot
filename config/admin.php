@@ -354,8 +354,12 @@ return [
 
     ],
 
+    // 管理员角色名称
     'admin_role_name' => [
         'superAdmin',
         'admin',
     ],
+
+    // 超管id
+    'super_admin_id' => env('SUPER_ADMIN_ID', 1),
 ];

@@ -71,7 +71,7 @@ class AdminController extends Controller
         $grid = new Grid(new AdminUser());
 
         // 排除超级管理员账号
-        $grid->model()->where('id', '!=', 1);
+        $grid->model()->where('id', '!=', config('admin.super_admin_id'));
 
         $grid->id('坐席ID')->sortable();
         $grid->username('登录用户名');

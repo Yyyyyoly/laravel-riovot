@@ -41,7 +41,9 @@ class UserStatistic extends Model
         $start = ($page - 1) * $perPage;
 
         // 总条数
-        $total = empty($name) ? AdminUser::count() : AdminUser::where('name', 'like', "%{$name}%")->count();
+        $super_admin_id = config('admin.super_admin_id');
+        $total = empty($name) ? AdminUser::where('id', '!=', $super_admin_id)->count() :
+            AdminUser::where('id', '!=', $super_admin_id)->where('name', 'like', "%{$name}%")->count();
 
         // 排序条件
         $sort = request('_sort', ['column' => 'id', 'type' => 'asc']);
@@ -49,6 +51,7 @@ class UserStatistic extends Model
         // 统计注册量
         $sub_query_1 = \DB::table($admin_table . ' as a')
             ->leftJoin($user_table . ' as b', 'b.admin_id', '=', 'a.id')
+            ->where('a.id', '!=', $super_admin_id)
             ->where('registered_at', '>=', $start_time)
             ->where('registered_at', '<=', $end_time)
             ->groupBy('admin_id')
@@ -60,6 +63,7 @@ class UserStatistic extends Model
         // 统计申请量
         $sub_query_2 = \DB::table($admin_table . ' as a')
             ->leftJoin($user_apply_table . ' as b', 'b.admin_id', '=', 'a.id')
+            ->where('a.id', '!=', $super_admin_id)
             ->where('b.created_at', '>=', $start_time)
             ->where('b.created_at', '<=', $end_time)
             ->groupBy('admin_id')
@@ -79,6 +83,7 @@ class UserStatistic extends Model
                     $join->on('admin.id', '=', 'apply.admin_id')
                         ->addBinding($sub_query_2->getBindings());
                 })
+            ->where('admin.id', '!=', $super_admin_id)
             ->selectRaw('id, name,register_count,apply_count');
         if ($name) {
             $query->where('admin.name', 'like', "%{$name}%");
