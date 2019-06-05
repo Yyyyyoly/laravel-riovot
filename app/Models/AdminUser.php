@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Encore\Admin\Auth\Database\Administrator;
 
-class AdminUser extends Model
+class AdminUser extends Administrator
 {
     /**
      * AdminUser constructor.
@@ -17,4 +17,5 @@ class AdminUser extends Model
 
         $this->setTable(config('admin.database.users_table'));
     }
+
 }
