@@ -2009,18 +2009,29 @@ class UserPhone
     ];
 
     /**
-     * 返回随机用户手机号s
+     * 返回随机用户手机号
      *
-     * @param int $length
+     * @param int $length 需要长度
      *
      * @return mixed
      */
     function random($length = 0)
     {
-        if (empty($length) || $length > count($this->userPhoneList)) {
-            $length = count($this->userPhoneList);
+        $total_count = count($this->userPhoneList);
+        if (empty($length) || $length > $total_count) {
+            $length = $total_count;
         }
 
-        return $this->userPhoneList[rand(0, $length - 1)];
+        if ($length == $total_count) {
+            return $this->userPhoneList;
+        }
+
+        $rtn = [];
+        $random_keys = array_rand($this->userPhoneList, $length);
+        foreach ($random_keys as $key) {
+            $rtn[] = $this->userPhoneList[$key];
+        }
+
+        return $rtn;
     }
 }

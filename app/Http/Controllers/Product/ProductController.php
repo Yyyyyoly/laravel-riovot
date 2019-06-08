@@ -70,7 +70,7 @@ class ProductController extends Controller
         }
 
         shuffle($results);
-        
+
         return $results;
     }
 
