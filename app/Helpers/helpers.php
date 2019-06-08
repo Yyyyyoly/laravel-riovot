@@ -72,3 +72,34 @@ if (!function_exists('adminCache')) {
         return Cache::store('redis_admin');
     }
 }
+if (!function_exists('timeDisplayTrans')) {
+    /**
+     * 时间显示转换函数
+     *
+     * @param $the_time
+     *
+     * @return string
+     */
+    function timeDisplayTrans(\Carbon\Carbon $the_time)
+    {
+        $now_time = \Carbon\Carbon::now();
+        $dur = $now_time->diffInSeconds($the_time);
+        if ($dur <= 60) {
+            return '刚刚';
+        } else {
+            if ($dur < 3600) {
+                return floor($dur / 60) . '分钟前';
+            } else {
+                if ($dur < 86400) {
+                    return floor($dur / 3600) . '小时前';
+                } else {
+                    if ($dur < 604800) { //7天内
+                        return floor($dur / 86400) . '天前';
+                    } else {
+                        return '7天前';
+                    }
+                }
+            }
+        }
+    }
+}

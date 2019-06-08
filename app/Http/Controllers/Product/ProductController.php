@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Constants\AdminCacheKeys;
+use App\FakeDatas\UserPhone;
 use App\Models\AdminUser;
 use App\Models\Product;
 use App\Models\ProductType;
@@ -39,13 +40,38 @@ class ProductController extends Controller
      */
     private function getFakeList()
     {
-        return [
-            ['time' => '刚刚', 'title' => '133****3562申请的25000元借款成功到账'],
-            ['time' => '2分钟前', 'title' => '138****9388申请的10000元借款成功到账'],
-            ['time' => '5分钟前', 'title' => '187****6265申请的40000元借款成功到账'],
-            ['time' => '1小时前', 'title' => '187****1063申请的10000元借款成功到账'],
-            ['time' => '30分钟前', 'title' => '130****7019申请的50000元借款成功到账'],
-        ];
+        $results = [];
+
+        $time_start = now()->addDays(-7)->timestamp;
+        $time_end = now()->timestamp;
+
+        $fake_phone = new UserPhone();
+        $phone_list_1 = $fake_phone->random(50);
+        $money_list = [20000, 25000, 30000, 35000, 40000, 45000];
+        foreach ($phone_list_1 as $phone) {
+            $money_key = array_rand($money_list, 1);
+            $time = mt_rand($time_start, $time_end);
+            $results[] = [
+                'time'  => timeDisplayTrans(Carbon::createFromTimestamp($time)),
+                'title' => "{$phone}申请的{$money_list[$money_key]}元借款成功到",
+            ];
+        }
+
+
+        $phone_list_2 = $fake_phone->random(20);
+        $money_list_2 = [50000, 60000, 70000, 80000, 90000, 100000];
+        foreach ($phone_list_2 as $phone) {
+            $money_key = array_rand($money_list_2, 1);
+            $time = mt_rand($time_start, $time_end);
+            $results[] = [
+                'time'  => timeDisplayTrans(Carbon::createFromTimestamp($time)),
+                'title' => "{$phone}申请的{$money_list_2[$money_key]}元借款成功到",
+            ];
+        }
+
+        shuffle($results);
+        
+        return $results;
     }
 
 
