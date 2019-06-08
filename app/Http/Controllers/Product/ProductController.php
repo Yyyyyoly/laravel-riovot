@@ -53,7 +53,7 @@ class ProductController extends Controller
             $time = mt_rand($time_start, $time_end);
             $results[] = [
                 'time'  => timeDisplayTrans(Carbon::createFromTimestamp($time)),
-                'title' => "{$phone}申请的{$money_list[$money_key]}元借款成功到",
+                'title' => "{$phone}申请的{$money_list[$money_key]}元借款成功到帐",
             ];
         }
 
@@ -65,7 +65,7 @@ class ProductController extends Controller
             $time = mt_rand($time_start, $time_end);
             $results[] = [
                 'time'  => timeDisplayTrans(Carbon::createFromTimestamp($time)),
-                'title' => "{$phone}申请的{$money_list_2[$money_key]}元借款成功到",
+                'title' => "{$phone}申请的{$money_list_2[$money_key]}元借款成功到帐",
             ];
         }
 
