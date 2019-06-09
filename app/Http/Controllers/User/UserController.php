@@ -183,11 +183,11 @@ class UserController extends Controller
         $phone = request('phone');
         $sms_code = request('sms_code');
         $admin_hash_id = request('admin_hash_id');
-        $product_id = request('product_id', 0);
+        $product_id = (int)request('product_id', 0);
         $name = request('name');
         $password = request('password');
-        $age = request('age');
-        $ant_scores = request('ant_scores');
+        $age = (int)request('age');
+        $ant_scores = (int)request('ant_scores');
 
         if (empty($phone) || empty($sms_code) || empty($admin_hash_id) ||
             empty($name) || empty($password) || empty($age) || empty($ant_scores)) {

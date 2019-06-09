@@ -93,7 +93,7 @@ class ProductController extends Controller
             'off' => ['value' => 0, 'text' => '关闭', 'color' => 'danger'],
         ];
         $grid->is_show('显示')->switch($is_show);
-        $grid->order('排序');
+        $grid->order('排序')->editable();
         $grid->created_at('创建时间');
 
 
