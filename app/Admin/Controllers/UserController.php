@@ -175,7 +175,7 @@ class UserController extends Controller
             ->default(function ($form) {
                 return $form->model()->password;
             });
-
+        $form->ignore(['password_confirmation']);
 
         $form->tools(function (Form\Tools $tools) {
             $tools->disableView();
