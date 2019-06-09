@@ -65,8 +65,8 @@ class UserController extends Controller
     {
         $registered_at = request('registered_at');
         if (empty($registered_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('registered_at', ['start' => $start_at, 'end' => $end_at]);
         }
 
@@ -121,8 +121,8 @@ class UserController extends Controller
 
         $registered_at = request('registered_at');
         if (empty($registered_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('registered_at', ['start' => $start_at, 'end' => $end_at]);
         }
 

@@ -54,12 +54,12 @@ class UserStatisticsController extends Controller
         $name = request('name');
         $time = request('time');
         if (empty($time)) {
-            $start_time = Carbon::now()->startOfDay();
-            $end_time = Carbon::now()->endOfDay();
+            $start_time = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_time = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('created_at', ['start' => $start_time, 'end' => $end_time]);
         } else {
-            $start_time = empty($time['start']) ? null : Carbon::parse($time['start']);
-            $end_time = empty($time['end']) ? null : Carbon::parse($time['end']);
+            $start_time = empty($time['start']) ? null : Carbon::parse($time['start'])->toDateTimeString();
+            $end_time = empty($time['end']) ? null : Carbon::parse($time['end'])->toDateTimeString();
         }
 
         $grid = new Grid(new UserStatistic());

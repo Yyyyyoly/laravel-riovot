@@ -70,6 +70,8 @@ class ProductTypeController extends Controller
     {
         $grid = new Grid(new ProductType);
 
+        $grid->model()->orderBy('is_show', 'desc')->orderBy('order', 'asc');
+
         $grid->name('类型名称');
         $is_show = [
             'on'  => ['value' => 1, 'text' => '打开', 'color' => 'success'],

@@ -58,8 +58,8 @@ class UserLoginController extends Controller
     {
         $created_at = request('created_at');
         if (empty($created_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
         }
 
@@ -111,8 +111,8 @@ class UserLoginController extends Controller
         $grid->model()->where('admin_id', $admin_user->id);
 
         if (empty($created_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
         }
 

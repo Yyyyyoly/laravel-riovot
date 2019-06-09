@@ -73,7 +73,7 @@ class ProductController extends Controller
     {
         $grid = new Grid(new Product);
 
-        $grid->model()->orderBy('top', 'desc')->orderBy('order', 'asc')->orderBy('is_show', 'desc');
+        $grid->model()->orderBy('is_show', 'desc')->orderBy('top', 'desc')->orderBy('order', 'asc');
         $grid->model()->with(['productType']);
 
         $grid->column('productType.name', '产品类型');

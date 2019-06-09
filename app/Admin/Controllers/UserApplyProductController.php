@@ -58,8 +58,8 @@ class UserApplyProductController extends Controller
     {
         $created_at = request('created_at');
         if (empty($created_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
         }
 
@@ -107,7 +107,6 @@ class UserApplyProductController extends Controller
     protected function grid()
     {
         $admin_user = \Admin::user();
-
         $grid = new Grid(new UserApplyProduct());
 
         // 非管理员只能查看本人
@@ -115,8 +114,8 @@ class UserApplyProductController extends Controller
 
         $created_at = request('created_at');
         if (empty($created_at)) {
-            $start_at = Carbon::now()->startOfDay();
-            $end_at = Carbon::now()->endOfDay();
+            $start_at = Carbon::now()->startOfDay()->toDateTimeString();
+            $end_at = Carbon::now()->endOfDay()->toDateTimeString();
             request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
         }
 

@@ -136,7 +136,7 @@ class UserController extends Controller
         if (empty($user) || empty($user->id)) {
             return response()->json(['success' => false, 'reason' => '请先去注册！', 500]);
         }
-        
+
         if (!password_verify($password, $user->password)) {
             return response()->json(['success' => false, 'reason' => '账号名或者密码错误！', 500]);
         }

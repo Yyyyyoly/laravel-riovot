@@ -57,9 +57,9 @@ class Product extends Model
             ->join("{$type_table_name} as b", 'a.type_id', '=', 'b.id')
             ->where('a.is_show', 1)
             ->where('b.is_show', 1)
-            ->orderByDesc('b.order')
+            ->orderBy('b.order')
             ->orderByDesc('a.top')
-            ->orderByDesc('a.order')
+            ->orderBy('a.order')
             ->selectRaw('b.id as type_id, b.name as type_name, a.name as product_name, a.id as product_id, url, `desc`, icon_url, fake_download_nums, real_download_nums')
             ->get();
         $product_list = [];
