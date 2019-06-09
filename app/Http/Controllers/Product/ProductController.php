@@ -121,7 +121,7 @@ class ProductController extends Controller
             $apply_log->save();
 
             // 真实下载量+1
-            \DB::update("update {$product_table_name} set `real_download_nums` = `real_download_nums` + 1 where id = {$products->id}");
+            \DB::statement("update {$product_table_name} set `real_download_nums` = `real_download_nums` + 1 where id = {$product_id}");
 
             try {
                 // 实时更新申请排行榜数据
