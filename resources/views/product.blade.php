@@ -57,6 +57,6 @@
 </body>
 
 <script src="{{ asset("/js/zepto.min.js")}} "></script>
-<script src="{{ asset("/js/product.js")}} "></script>
+<script src="{{ asset("/js/product.js?r=20190611")}} "></script>
 
 </html>
