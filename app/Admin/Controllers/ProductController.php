@@ -182,23 +182,19 @@ class ProductController extends Controller
         \Admin::css(asset('/css/font-awesome.min.css'));
 
         $tab = new Tab();
-        $product_list = Product::getProductList();
-        foreach ($product_list as $type_list) {
-            $products = $type_list['products'];
-
-            $html = '';
-            foreach ($products as $product) {
-                $html .= $this->renderProductIcon(
-                    $product['icon_url'],
-                    $product['name'],
-                    $product['download_nums'],
-                    $product['desc']
-                );
-            }
-            $row = new Row($html);
-
-            $tab->add($type_list['type_name'], $row->render());
+        $product_list = Product::getProductListIgnoreType();
+        $html = '';
+        foreach ($product_list as $product) {
+            $html .= $this->renderProductIcon(
+                $product['icon_url'],
+                $product['name'],
+                $product['download_nums'],
+                $product['desc']
+            );
         }
+        $row = new Row($html);
+
+        $tab->add('无视黑白', $row->render());
 
         return (new Content())
             ->header('产品管理')

@@ -67,12 +67,12 @@ class UserApplyProductController extends Controller
 
         $grid->exporter(new UserApplyCsvExporter());
 
-        $grid->with(['user', 'product', 'adminUser']);
+        $grid->with(['user', 'adminUser']);
 
         $grid->adminUser()->name('渠道名称')->sortable();
         $grid->user()->name('用户姓名')->sortable();
         $grid->user()->phone('手机号');
-        $grid->product()->name('产品名称')->sortable();
+        $grid->product_name('产品名称')->sortable();
         $grid->created_at('申请时间')->sortable();
 
         // 过滤器
@@ -84,7 +84,7 @@ class UserApplyProductController extends Controller
                 $filter->like('adminUser.name', '渠道名称');
                 $filter->like('user.name', '用户姓名');
                 $filter->like('user.phone', '手机号');
-                $filter->like('product.name', '产品名称');
+                $filter->like('product_name', '产品名称');
                 $filter->between('created_at', '申请时间')->datetime();
             });
         });
@@ -119,12 +119,12 @@ class UserApplyProductController extends Controller
             request()->offsetSet('created_at', ['start' => $start_at, 'end' => $end_at]);
         }
 
-        $grid->with(['user', 'product', 'adminUser']);
+        $grid->with(['user', 'adminUser']);
 
         $grid->adminUser()->name('渠道名称')->sortable();
         $grid->user()->name('用户姓名')->sortable();
         $grid->user()->phone('手机号');
-        $grid->product()->name('产品名称')->sortable();
+        $grid->product_name('产品名称')->sortable();
         $grid->created_at('申请时间')->sortable();
 
         // 过滤器
@@ -135,7 +135,7 @@ class UserApplyProductController extends Controller
             $filter->column(6, function ($filter) {
                 $filter->like('user.name', '用户姓名');
                 $filter->like('user.phone', '手机号');
-                $filter->like('product.name', '产品名称');
+                $filter->like('product_name', '产品名称');
                 $filter->between('created_at', '申请时间')->datetime();
             });
         });

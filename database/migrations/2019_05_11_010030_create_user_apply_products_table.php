@@ -16,11 +16,12 @@ class CreateUserApplyProductsTable extends Migration
         Schema::create('user_apply_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('product_id')->comment('产品id');
+            $table->string('product_name')->comment('产品名称');
             $table->bigInteger('user_id')->comment('客户id');
             $table->integer('admin_id')->comment('渠道人员id');
             $table->timestamps();
 
-            $table->unique(['user_id', 'product_id']);
+            $table->unique(['user_id', 'product_name']);
             $table->index(['admin_id']);
             $table->index(['created_at']);
         });

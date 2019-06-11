@@ -11,6 +11,7 @@ use App\Models\UserApplyProduct;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
@@ -27,7 +28,7 @@ class ProductController extends Controller
 
         return view('product', [
             'admin_hash_id' => $admin_hash_id,
-            'product_list'  => Product::getProductList(),
+            'product_list'  => Product::getProductListIgnoreType(),
             'fake_list'     => $this->getFakeList(),
         ]);
     }
@@ -92,14 +93,20 @@ class ProductController extends Controller
         // 查询产品是否有效
         $product_table_name = Product::getModel()->getTable();
         $type_table_name = ProductType::getModel()->getTable();
-        $products = Product::from("{$product_table_name} as a")
+        $product = Product::from("{$product_table_name} as a")
             ->join("{$type_table_name} as b", 'a.type_id', '=', 'b.id')
             ->where('a.is_show', 1)
             ->where('b.is_show', 1)
             ->where('a.id', $product_id)
+            ->selectRaw('a.id as id, a.name as name, a.url as url')
             ->first();
-        if (empty($product_id) || empty($products->id)) {
+        if (empty($product_id) || empty($product->id)) {
             return view('error', ['error_msg' => '产品已经下架，无法申请！']);
+        }
+
+        // 如果渠道内包含S、s  则不参与员工业绩结算
+        if (preg_match('/[s|S]$/', $product->name)) {
+            return redirect($product->url);
         }
 
         // 验证渠道id的有效性
@@ -109,12 +116,15 @@ class ProductController extends Controller
             return view('error', ['error_msg' => '请从您的专属渠道链接进入后申请！']);
         }
 
+        // 现在改成 根据产品名称去重
         // 记录申请uv
         $apply_log = UserApplyProduct::whereUserId($user_id)
-            ->whereProductId($product_id)
+            ->where('product_name', $product->name)
             ->first();
+
         if (empty($apply_log) || empty($apply_log->id)) {
             $apply_log = new UserApplyProduct();
+            $apply_log->product_name = $product->name;
             $apply_log->product_id = $product_id;
             $apply_log->user_id = $user_id;
             $apply_log->admin_id = $admin_id;
@@ -134,6 +144,6 @@ class ProductController extends Controller
         }
 
         // 跳第三方
-        return redirect($products->url);
+        return redirect($product->url);
     }
 }

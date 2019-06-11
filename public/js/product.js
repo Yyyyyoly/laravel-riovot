@@ -20,26 +20,42 @@ $(function () {
 	var activeIndex = 1;
 	var titleHtml = '';
 	var productList = '';
-	var tabCount = 0;
-	for (var i in product_list) {
-		tabCount++;
-		var showTab = tabCount == 1 ? 'tab_show' : '';
-		var showList = tabCount == 1 ? 'list_show' : '';
-		titleHtml += '<span tindex="' + tabCount + '" class="tab-cell hide ' + showTab + '">' + product_list[i].type_name + '</span>';
-		var listHmtl = '';
-		var product = product_list[i].products;
-		for (var j = 0; j < product.length; j++) {
-			listHmtl += '<div class="product-list-cell" onclick="jumpDonwload(' + product[j].id + ')">'
-				+ '<i class="icon-circle-blank i-right"></i>'
-				+ '<img class="cell-img" src="' + product[j].icon_url + '" />'
-				+ '<div class="title">' + product[j].name + '</div>'
-				+ '<div class="num"><i class="icon-download-alt"></i>' + product[j].download_nums + '</span></div>'
-				+ '<div class="desc">' + product[j].desc + '</div>'
-				+ '</div>';
-		}
-		productList += '<div class="product-list hide ' + showList + '" pindex="' + tabCount + '">' + listHmtl + '</div>';
-
+	// var tabCount = 0;
+	// for (var i in product_list) {
+	// 	tabCount++;
+	// 	var showTab = tabCount == 1 ? 'tab_show' : '';
+	// 	var showList = tabCount == 1 ? 'list_show' : '';
+	// 	titleHtml += '<span tindex="' + tabCount + '" class="tab-cell hide ' + showTab + '">' + product_list[i].type_name + '</span>';
+	// 	var listHmtl = '';
+	// 	var product = product_list[i].products;
+	// 	for (var j = 0; j < product.length; j++) {
+	// 		listHmtl += '<div class="product-list-cell" onclick="jumpDonwload(' + product[j].id + ')">'
+	// 			+ '<i class="icon-circle-blank i-right"></i>'
+	// 			+ '<img class="cell-img" src="' + product[j].icon_url + '" />'
+	// 			+ '<div class="title">' + product[j].name + '</div>'
+	// 			+ '<div class="num"><i class="icon-download-alt"></i>' + product[j].download_nums + '</span></div>'
+	// 			+ '<div class="desc">' + product[j].desc + '</div>'
+	// 			+ '</div>';
+	// 	}
+	// 	productList += '<div class="product-list hide ' + showList + '" pindex="' + tabCount + '">' + listHmtl + '</div>';
+	//
+	// }
+	var tabCount = 1;
+	var showTab ='tab_show';
+	var showList = 'list_show';
+	titleHtml += '<span tindex="' + tabCount + '" class="tab-cell hide ' + showTab + '">' + '无视黑白' + '</span>';
+	var listHmtl = '';
+	for (var j = 0; j < product_list.length; j++) {
+		listHmtl += '<div class="product-list-cell" onclick="jumpDonwload(' + product_list[j].id + ')">'
+			+ '<i class="icon-circle-blank i-right"></i>'
+			+ '<img class="cell-img" src="' + product_list[j].icon_url + '" />'
+			+ '<div class="title">' + product_list[j].name + '</div>'
+			+ '<div class="num"><i class="icon-download-alt"></i>' + product_list[j].download_nums + '</span></div>'
+			+ '<div class="desc">' + product_list[j].desc + '</div>'
+			+ '</div>';
 	}
+	productList += '<div class="product-list hide ' + showList + '" pindex="' + tabCount + '">' + listHmtl + '</div>';
+
 	if (tabCount > 1) {
 		$('.record-right').removeClass('hide');
 	}

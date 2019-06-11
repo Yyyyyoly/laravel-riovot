@@ -42,16 +42,10 @@ class Fix extends Command
      */
     public function handle()
     {
-        $updates = UserApplyProduct::groupBy('product_id')
-            ->selectRaw('product_id, count(*) as count')
-            ->get();
-
-        $product_table_name = Product::getModel()->getTable();
-
-        foreach($updates as $update){
-            \DB::update("update {$product_table_name} set `real_download_nums` = {$update->count} 
-where id = {$update->product_id}");
-
+        $products = Product::get();
+        $user_apply_table = UserApplyProduct::getModel()->getTable();
+        foreach ($products as $product) {
+            \DB::statement("update {$user_apply_table} set product_name = '{$product->name}' where product_id  = {$product->id}");
         }
     }
 
